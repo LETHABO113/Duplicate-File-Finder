@@ -135,4 +135,93 @@ Top 3 groups:
 | 7 |  |  | **Testing & QA lead** | logger, AppSetting |
 | 8 |  |  | **Documantaion & lead ** | FileUtils, HashUtils |
 
+### What each role actually does
 
+**Member 1 — Project Lead / Integrator**
+- Sets up the GitHub repo, `.gitignore`, Maven `pom.xml`
+- Writes `MainApp` and `AppController`
+- Reviews pull requests, keeps the schedule, resolves blockers
+- Runs the Week 12 demo
+
+**Member 2 — FileScanner Developer**
+- Writes recursive directory walker (`FileScanner`)
+- Handles extension regex filter, min size filter
+- Handles permission errors and symlink loops
+- Delivers: `FileScanner.java` + `FileScannerTest.java`
+
+**Member 3 — HashCalculator Developer**
+- Writes `HashCalculator` (SHA-256)
+- Adds multithreading with `ExecutorService`
+- Writes `QuarantineManager` (move/restore + audit log)
+- Delivers: `HashCalculator.java`, `QuarantineManager.java` + tests
+
+**Member 4 — DuplicateDetector Developer**
+- Writes `DuplicateDetector` (size pass + hash pass)
+- Writes generic `DuplicateGroup<T>`
+- Owns Big O analysis in the design doc
+- Delivers: `DuplicateDetector.java`, `DuplicateGroup.java` + tests
+
+**Member 5 — CLI Developer**
+- Writes `CLIMenu` (interactive menu loop)
+- Writes `ReportGenerator` (console, CSV, JSON)
+- Owns user input validation
+- Delivers: `CLIMenu.java`, `ReportGenerator.java` + tests
+
+**Member 6 — GUI Developer**
+- Writes `MainWindow` using Swing
+- Progress bar, results table, checkboxes
+- Integrates with `AppController`
+- Delivers: `MainWindow.java`
+
+**Member 7 — Testing & QA Lead**
+- Writes JUnit tests for all core classes
+- Builds `sample-data/` folder with edge cases
+- Writes `Logger` and `AppSettings`
+- Owns the Testing section of the report
+- Delivers: test suite, sample data, edge-case list
+
+**Member 8 — Documentation & UML Lead**
+- Maintains `README.md` and `docs/`
+- Draws the UML class diagram (draw.io or PlantUML)
+- Writes System Design Document (5–10 pages)
+- Writes GA2 + GA7 reflection
+- Delivers: `docs/UML_ClassDiagram.png`, `docs/SystemDesignDocument.pdf`, `docs/GA_Reflection.md`
+
+## 🛠️ Tools We Use
+
+| Tool | Purpose |
+|---|---|
+| **Java JDK 17+** | Language runtime |
+| **Apache NetBeans** or **VS Code** | IDE |
+| **Maven** | Build tool (creates JAR, runs tests) |
+| **GitHub** | Version control, collaboration |
+| **JUnit 5** | Automated testing |
+| **draw.io** or **PlantUML** | UML diagrams |
+
+---
+
+## 🌳 Git Workflow (everyone must follow this)
+
+### Branches
+- `main` — protected. **Nobody commits directly.** Only merged via PR.
+- `develop` — integration branch.
+- `feature/<your-name>-<thing>` — your work branch.
+
+Example: `feature/thabo-filescanner`
+
+### Commit messages
+```
+feat: add SHA-256 hash calculator
+fix: handle permission-denied folders
+docs: add UML diagram
+test: add edge case for empty files
+refactor: extract FileUtils
+chore: update .gitignore
+```
+
+### Pull Request rules
+1. Push your branch to GitHub.
+2. Open a Pull Request into `develop`.
+3. At least **one teammate reviews and approves**.
+4. All tests must pass.
+5. Then merge.
