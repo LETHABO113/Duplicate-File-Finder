@@ -127,14 +127,14 @@ Top 3 groups:
 
 | # | Name | Student No. | Primary Role | Backup Role |
 |---|---|---|---|---|
-| 1 |  |  | **Project lead/intergrator** | AppCOntroller |
-| 2 |  |  | **FileScannner dev** | HashCalculator |
-| 3 |  |  | **HashCalculator dev** | QuarantineManager |
-| 4 |  |  | **DuplicateDetector dev** | DuplicateGroup |
-| 5 |  |  | **CLI dev** | ReportGenerator |
-| 6 |  |  | **GUI dev** | CLI Menu |
-| 7 |  |  | **Testing & QA lead** | logger, AppSetting |
-| 8 |  |  | **Documantaion & lead ** | FileUtils, HashUtils |
+| 1 | Ntokozo  | 250070480 | **Project lead/intergrator** | AppCOntroller |
+| 2 | Mahlogono | 251565998 | **FileScannner dev** | HashCalculator |
+| 3 | Lethabo | 251511588 | **HashCalculator dev** | QuarantineManager |
+| 4 | Thapelo | 231248822 | **DuplicateDetector dev** | DuplicateGroup |
+| 5 | Nkazimulo |250448890  | **CLI dev** | ReportGenerator |
+| 6 | Kungawo |250078732  | **GUI dev** | CLI Menu |
+| 7 | Amogelang|250336405 | **Testing & QA lead** | logger, AppSetting |
+| 8 | Buhle | 251224239  | **Documantaion & lead** | FileUtils, HashUtils |
 
 ### What each role actually does
 
