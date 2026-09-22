@@ -90,18 +90,19 @@ Top 3 groups:
 
 | Class | What it does | Primary Owner|
 |---|---|---|
-| `MainApp` | Program entry point | |
-| `AppController` | Wires everything together | |
-| `CLIMenu` | Console menu loop | |
-| `MainWindow` | GUI | |
-| `FileScanner` | Walks folders recursively | |
-| `HashCalculator` | Computes SHA-256 of one file | |
-| `DuplicateDetector` | Size + hash grouping | |
-| `DuplicateGroup<T>` | Holds one set of duplicates | |
-| `QuarantinManager` | Moves/restores files; writes audites log | |
-| `ReportGenerator` | Console, CSV, JSON output | |
-| `Logger` | Timestamped activity log | |
-| `AppSettings` | Saves/loads user settings | |
+| `MainApp` | Program entry point | 1 |
+| `AppController` | Wires everything together | 2 |
+| `CLIMenu` | Console menu loop | 5 |
+| `MainWindow` | GUI | 6 |
+| `FileScanner` | Walks folders recursively | 2 |
+| `HashCalculator` | Computes SHA-256 of one file | 3 |
+| `DuplicateDetector` | Size + hash grouping | 4 |
+| `DuplicateGroup<T>` | Holds one set of duplicates | 4 |
+| `QuarantinManager` | Moves/restores files; writes audit log | 3 |
+| `ReportGenerator` | Console, CSV, JSON output | 5 |
+| `Logger` | Timestamped activity log | 7 |
+| `AppSettings` | Saves/loads user settings | 7 |
+|`FileUtils`, `HashUtils` | Shared helpers | 8 | 
 
 ## Which syllabus concepts we cover
 
@@ -141,7 +142,7 @@ Top 3 groups:
 - Sets up the GitHub repo, `.gitignore`, Maven `pom.xml`
 - Writes `MainApp` and `AppController`
 - Reviews pull requests, keeps the schedule, resolves blockers
-- Runs the Week 12 demo
+- Runs the Week 6 demo
 
 **Member 2 — FileScanner Developer**
 - Writes recursive directory walker (`FileScanner`)
@@ -187,7 +188,7 @@ Top 3 groups:
 - Writes GA2 + GA7 reflection
 - Delivers: `docs/UML_ClassDiagram.png`, `docs/SystemDesignDocument.pdf`, `docs/GA_Reflection.md`
 
-## 🛠️ Tools We Use
+## Tools We Use
 
 | Tool | Purpose |
 |---|---|
@@ -200,7 +201,7 @@ Top 3 groups:
 
 ---
 
-## 🌳 Git Workflow (everyone must follow this)
+## Git Workflow (everyone must follow this)
 
 ### Branches
 - `main` — protected. **Nobody commits directly.** Only merged via PR.
