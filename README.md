@@ -209,15 +209,6 @@ Top 3 groups:
 
 Example: `feature/thabo-filescanner`
 
-### Commit messages
-```
-feat: add SHA-256 hash calculator
-fix: handle permission-denied folders
-docs: add UML diagram
-test: add edge case for empty files
-refactor: extract FileUtils
-chore: update .gitignore
-```
 
 ### Pull Request rules
 1. Push your branch to GitHub.
