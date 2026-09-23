@@ -1,44 +1,81 @@
 package com.dupfinder.hash;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
-/**
- * Owner: Member 3 (Lethabo) - HashCalculator Developer
- *
- * Computes the SHA-256 hash of a file's content, and hashes many files in
- * parallel using an ExecutorService.
- *
- * TODO (Member 3):
- *   - Implement single-file hashing using MessageDigest("SHA-256") and a
- *     BufferedInputStream, reading in chunks (do not load whole file into memory).
- *   - Implement hashAll() using an ExecutorService (fixed thread pool, size ~= cores)
- *     to hash a batch of files in parallel and collect results into a Map.
- *   - Handle IOExceptions per-file (unreadable file should not kill the whole batch).
- *   - Write tests: identical files -> same hash, one-byte-different files -> different
- *     hash, empty file, large file, unreadable file.
- */
 public class HashCalculator {
 
-    /**
-     * Computes the SHA-256 hash of a single file's content.
-     *
-     * @param file path to the file
-     * @return lowercase hex string of the SHA-256 digest
-     */
     public String hashFile(Path file) throws IOException {
-        throw new UnsupportedOperationException("TODO: implement in HashCalculator (Member 3)");
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+
+            try (InputStream in = new BufferedInputStream(Files.newInputStream(file))) {
+                byte[] buffer = new byte[8192];
+                int bytesRead;
+                while ((bytesRead = in.read(buffer)) != -1) {
+                    digest.update(buffer, 0, bytesRead);
+                }
+            }
+
+            byte[] hashBytes = digest.digest();
+            return bytesToHex(hashBytes);
+
+        } catch (NoSuchAlgorithmException e) {
+            // SHA-256 is built into every Java installation, so this branch is effectively unreachable
+            throw new RuntimeException("SHA-256 algorithm not available", e);
+        }
     }
 
-    /**
-     * Hashes a batch of files in parallel.
-     *
-     * @param files files to hash
-     * @return map of file path -> SHA-256 hex string (files that failed to hash are omitted)
-     */
     public Map<Path, String> hashAll(List<Path> files) {
-        throw new UnsupportedOperationException("TODO: implement in HashCalculator (Member 3)");
+        int threadCount = Runtime.getRuntime().availableProcessors();
+        ExecutorService executor = Executors.newFixedThreadPool(threadCount);
+        Map<Path, String> results = new ConcurrentHashMap<>();
+
+        List<Future<?>> futures = new ArrayList<>();
+
+        for (Path file : files) {
+            Future<?> future = executor.submit(() -> {
+                try {
+                    String hash = hashFile(file);
+                    results.put(file, hash);
+                } catch (IOException e) {
+                    // Skip this file, don't let it crash the whole batch
+                    System.err.println("Could not hash " + file + ": " + e.getMessage());
+                }
+            });
+            futures.add(future);
+        }
+
+        for (Future<?> future : futures) {
+            try {
+                future.get();
+            } catch (InterruptedException | ExecutionException e) {
+                System.err.println("Hashing task failed: " + e.getMessage());
+            }
+        }
+
+        executor.shutdown();
+        return results;
+    }
+
+    private String bytesToHex(byte[] bytes) {
+        StringBuilder hex = new StringBuilder();
+        for (byte b : bytes) {
+            hex.append(String.format("%02x", b));
+        }
+        return hex.toString();
     }
 }
