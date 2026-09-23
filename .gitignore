@@ -37,7 +37,7 @@ nb-configuration.xml
 Thumbs.db
 
 # App runtime data - do not commit real scan data or quarantined files
-quarantine/
+/quarantine/
 *.log
 settings.json
 scan-results/
