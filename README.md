@@ -4,7 +4,7 @@
 **Project Topic #2 | Team of 8**
 
 [![Java](https://img.shields.io/badge/Java-17%2B-orange)]()
-[![Maven](https://img.shields.io/badge/Build-Maven-blue)]()
+[![ant](https://img.shields.io/badge/Build-ant-blue)]()
 [![Status](https://img.shields.io/badge/Status-In%20Development-yellow)]()
 
 **Repo:** https://github.com/LETHABO113/Duplicate-file-finder
@@ -227,7 +227,7 @@ You can build your class and test it in isolation.
 ### What each role actually does
 
 **Member 1 — Project Lead / Integrator**
-- Sets up the GitHub repo, `.gitignore`, Maven `pom.xml`
+- Sets up the GitHub repo, `.gitignore`, ant `pom.xml`
 - Writes `MainApp` and `AppController`
 - Reviews pull requests, keeps the schedule, resolves blockers
 - Runs the Week 6 demo
@@ -287,7 +287,7 @@ sick, the project still moves.
 |---|---|
 | **Java JDK 17+** | Language runtime |
 | **Apache NetBeans** or **VS Code** | IDE |
-| **Maven** | Build tool (creates JAR, runs tests) |
+| **ant** | Build tool (creates JAR, runs tests) |
 | **GitHub** | Version control, collaboration |
 | **JUnit 5** | Automated testing |
 | **draw.io** or **PlantUML** | UML diagrams |
@@ -582,7 +582,7 @@ Full reflection: [`docs/GA_Reflection.md`](docs/GA_Reflection.md)
 | **CLI** | Command-Line Interface (text menu) |
 | **GUI** | Graphical User Interface (windows, buttons) |
 | **JUnit** | Java testing framework |
-| **Maven** | Java build tool |
+| **ant** | Java build tool |
 | **PR** | Pull Request — a request to merge your branch |
 | **Repo** | Repository — the project folder tracked by Git |
 
