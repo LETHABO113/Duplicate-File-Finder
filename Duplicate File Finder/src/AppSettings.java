@@ -7,6 +7,6 @@
  *
  * @author letha
  */
-public class DuplicateDetectector {
+public class AppSettings {
     
 }
