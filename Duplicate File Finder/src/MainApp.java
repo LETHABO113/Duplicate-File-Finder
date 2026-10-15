@@ -1,3 +1,4 @@
+package duplicatefilefinder;
 public class MainApp {
     
     //operating modes

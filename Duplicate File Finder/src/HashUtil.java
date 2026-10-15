@@ -1,3 +1,4 @@
+package duplicatefilefinder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
