@@ -69,9 +69,6 @@ public class DuplicateDetector {
         return confirmedDuplicates;
     }
 
-    /**
-     * Groups a list of files by their byte size in O(n) average time.
-     */
     public Map<Long, List<File>> groupBySize(List<File> files) {
         Map<Long, List<File>> sizeMap = new HashMap<>();
         if (files == null) {
