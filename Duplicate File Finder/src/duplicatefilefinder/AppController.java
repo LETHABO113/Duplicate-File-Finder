@@ -21,9 +21,8 @@ public class AppController {
         this.settings = (settings != null) ? settings : new AppSettings();
         this.logger = Logger.getInstance();
         
-        this.scanner = new FileScanner();
-        this.scanner.setMinSize(this.settings.getMinFileSize());
-        this.scanner.setExtensionFilter(this.settings.getExtention);
+        this.scanner = new FileScanner(
+                this.settings.getMinFileSize(), this.settings.getExtensionFilter());
         
         this.detector = new DuplicateDetector(new HashCalculator(this.settings.getThreadPoolSize()));
         
@@ -51,7 +50,9 @@ public class AppController {
         logger.info("Scanning directoey: " + directory);
         long start = System.currentTimeMillis();
         
-        List<File> candidates = scanner.scanDirectory(directory);
+        List<File> candidates = scanner.scanDirectory(directory).stream()
+                .map(Path::toFile)
+                .toList();
         logger.info("Found" + candidates.size() + "candidate files");
         
         List<DuplicateGroup<File>> groups = detector.findDuplicates(candidates);
@@ -72,6 +73,7 @@ public class AppController {
         logger.info("Quarantining " + files.size() + "files");
         List<Path> moved = quarantineManager.quarantineAll(files);
         logger.info("Quarantine completed: " + moved.size() + " file(s) moved");
+        return moved;
     }
     
     //restore
@@ -88,13 +90,13 @@ public class AppController {
     
     //quarantined paths
     public List<Path> listQuarantined(){
-        return quarantineManger.listQuarantined();
+        return quarantineManager.listQuarantined();
     }
     
     //reporting
     public enum ExportFormat {CSV, JSON}
     
-    public void exportResults(List<DuplicateGroup<Files>> groups, ExportFormat format, Path outputPath) throws IOException{
+    public void exportResults(List<DuplicateGroup<File>> groups, ExportFormat format, Path outputPath) throws IOException{
         if (groups == null || groups.isEmpty()){
             throw new IllegalArgumentException("no resultts to export: ");
         }
@@ -105,9 +107,9 @@ public class AppController {
         logger.info("Exporting " + groups.size() + "group(s) as " + format);
         
         switch (format){
-            case CSV -> reportGenerator.exportToCSV(groups, outputPath);
+            case CSV -> reportGenerator.exportToCsv(groups, outputPath);
             
-            case JSON -> reportGenerator.exportToJSON(groups, outputPath);
+            case JSON -> reportGenerator.exportToJson(groups, outputPath);
         }
         
         logger.info("Export complete: " + outputPath);
@@ -115,7 +117,7 @@ public class AppController {
     
     //duplicate groups
     public void printResults(List<DuplicateGroup<File>> groups){
-        reportGenerator.printTOConsole(
+        reportGenerator.printToConsole(
         groups != null ? groups : Collections.emptyList());
     }
     
@@ -138,7 +140,7 @@ public class AppController {
                 return AppSettings.load(SETTINGS_PATH);
             }
         }catch (IOException e){
-            logger.getInstance().warn("Unable to load settings, using defaults: " + e.getMessage());
+            Logger.getInstance().warn("Unable to load settings, using defaults: " + e.getMessage());
         }
         return new AppSettings();
     }

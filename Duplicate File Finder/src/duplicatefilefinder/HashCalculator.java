@@ -3,6 +3,7 @@ package duplicatefilefinder;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.MessageDigest;
@@ -29,7 +30,11 @@ public class HashCalculator implements AutoCloseable {
         if (threadCount < 1) {
             throw new IllegalArgumentException("Thread count must be at least 1");
         }
-        executor = Executors.newFixedThreadPool(threadCount);
+        executor = Executors.newFixedThreadPool(threadCount, task -> {
+            Thread thread = new Thread(task, "duplicate-file-hash");
+            thread.setDaemon(true);
+            return thread;
+        });
     }
 
     public String calculateHash(File file) throws IOException {
@@ -40,6 +45,17 @@ public class HashCalculator implements AutoCloseable {
     }
 
     public String calculateHash(Path path) throws IOException {
+        return calculateHash(path, HashUtil.DEFAULT_ALGORITHM);
+    }
+
+    private String calculateHash(File file, String algorithm) throws IOException {
+        if (file == null) {
+            throw new IllegalArgumentException("File cannot be null");
+        }
+        return calculateHash(file.toPath(), algorithm);
+    }
+
+    private String calculateHash(Path path, String algorithm) throws IOException {
         if (path == null) {
             throw new IllegalArgumentException("Path cannot be null");
         }
@@ -47,7 +63,7 @@ public class HashCalculator implements AutoCloseable {
             throw new IOException("File is missing, unreadable, or not a regular file: " + path);
         }
 
-        MessageDigest digest = HashUtil.sha256();
+        MessageDigest digest = HashUtil.creationDigest(algorithm);
         byte[] buffer = new byte[BUFFER_SIZE];
 
         try (InputStream input = Files.newInputStream(path)) {
@@ -61,8 +77,15 @@ public class HashCalculator implements AutoCloseable {
     }
 
     public Map<File, String> calculateHashes(List<File> files) throws IOException {
+        return calculateHashes(files, HashUtil.DEFAULT_ALGORITHM);
+    }
+
+    public Map<File, String> calculateHashes(List<File> files, String algorithm) throws IOException {
         if (files == null) {
             throw new IllegalArgumentException("File list cannot be null");
+        }
+        if (algorithm == null || algorithm.isBlank()) {
+            throw new IllegalArgumentException("Hash algorithm cannot be null or blank");
         }
         for (File file : files) {
             if (file == null) {
@@ -73,7 +96,7 @@ public class HashCalculator implements AutoCloseable {
         List<Future<String>> results = new ArrayList<>(files.size());
         try {
             for (File file : files) {
-                results.add(executor.submit(() -> calculateHash(file)));
+                results.add(executor.submit(() -> calculateHash(file, algorithm)));
             }
         } catch (RuntimeException e) {
             cancelAll(results);
@@ -99,6 +122,26 @@ public class HashCalculator implements AutoCloseable {
         }
 
         return hashes;
+    }
+
+    public static Map<String, List<File>> groupFilesByHashParallel(
+            List<File> files, String algorithm) {
+        Map<String, List<File>> groups = new LinkedHashMap<>();
+        if (files == null || files.isEmpty()) {
+            return groups;
+        }
+
+        try (HashCalculator calculator = new HashCalculator()) {
+            Map<File, String> hashes = calculator.calculateHashes(files, algorithm);
+            for (Map.Entry<File, String> entry : hashes.entrySet()) {
+                groups.computeIfAbsent(entry.getValue(), key -> new ArrayList<>())
+                        .add(entry.getKey());
+            }
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+
+        return groups;
     }
 
     private void cancelAll(List<Future<String>> results) {

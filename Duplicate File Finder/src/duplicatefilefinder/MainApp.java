@@ -1,14 +1,17 @@
 package duplicatefilefinder;
+
+import javax.swing.SwingUtilities;
+
 public class MainApp {
     
     //operating modes
     public enum Mode {CLI, GUI}
     
     public static void main(String[] args){
-        Logger logger = new Logger.getInstance();
+        Logger logger = Logger.getInstance();
         
         try {
-            Mode mode = parseArgurments(args);
+            Mode mode = parseArguments(args);
             logger.info("Starting duplicate file finde in " + mode + "mode");
             
             AppSettings settings = AppController.loadSettings();
@@ -17,12 +20,10 @@ public class MainApp {
             
             switch (mode){
                 case GUI -> {
-                    MainWindow window = new MainWindow(controller);
-                    window.launch();
+                    SwingUtilities.invokeLater(() -> new MainWindow().setVisible(true));
                 }
                 case CLI -> {
-                    CLIMenu = menu = new CLIMenu(controller);
-                    menu.launch();
+                    new CLIMenu(controller).launch();
                 }
             }
             
@@ -46,6 +47,6 @@ public class MainApp {
                 return Mode.CLI;
             }
         }
-        
+        return Mode.CLI;
     }
 }

@@ -1,17 +1,29 @@
 package duplicatefilefinder;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 public class DuplicateDetector {
 
     private static final String DEFAULT_ALGORITHM = "SHA-256";
+    private final HashCalculator hashCalculator;
 
     public DuplicateDetector() {
+        this(new HashCalculator());
+    }
+
+    public DuplicateDetector(HashCalculator hashCalculator) {
+        if (hashCalculator == null) {
+            throw new IllegalArgumentException("Hash calculator cannot be null");
+        }
+        this.hashCalculator = hashCalculator;
     }
 
     /**
@@ -51,8 +63,18 @@ public class DuplicateDetector {
         }
 
         // Step 3: Hash candidates in parallel using HashCalculator
-        Map<String, List<File>> hashGroups =
-                HashCalculator.groupFilesByHashParallel(sameSizeCandidates, hashAlgo);
+        Map<File, String> fileHashes;
+        try {
+            fileHashes = hashCalculator.calculateHashes(sameSizeCandidates, hashAlgo);
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+
+        Map<String, List<File>> hashGroups = new LinkedHashMap<>();
+        for (Map.Entry<File, String> entry : fileHashes.entrySet()) {
+            hashGroups.computeIfAbsent(entry.getValue(), key -> new ArrayList<>())
+                    .add(entry.getKey());
+        }
 
         // Step 4: Any hash group with more than 1 file is a confirmed duplicate group
         List<DuplicateGroup<File>> confirmedDuplicates = new ArrayList<>();
