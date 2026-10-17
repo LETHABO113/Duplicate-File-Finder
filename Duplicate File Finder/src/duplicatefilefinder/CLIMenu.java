@@ -26,23 +26,27 @@ public class CLIMenu {
 
     public void launch() {
         boolean running = true;
-        while (running && input.hasNextLine()) {
-            showMenu();
-            int choice = readMenuChoice();
+        try {
+            while (running && input.hasNextLine()) {
+                showMenu();
+                int choice = readMenuChoice();
 
-            switch (choice) {
-                case 1 -> scanDirectory();
-                case 2 -> showLastScan();
-                case 3 -> exportResults();
-                case 4 -> quarantineDuplicates();
-                case 5 -> restoreFiles();
-                case 6 -> showSettings();
-                case 7 -> running = false;
-                default -> System.out.println("Choose a number from 1 to 7.");
+                switch (choice) {
+                    case 1 -> scanDirectory();
+                    case 2 -> showLastScan();
+                    case 3 -> exportResults();
+                    case 4 -> quarantineDuplicates();
+                    case 5 -> restoreFiles();
+                    case 6 -> showSettings();
+                    case 7 -> running = false;
+                    default -> System.out.println("Choose a number from 1 to 7.");
+                }
             }
-        }
 
-        System.out.println("Duplicate File Finder closed.");
+            System.out.println("Duplicate File Finder closed.");
+        } finally {
+            controller.close();
+        }
     }
 
     private void showMenu() {
@@ -191,7 +195,10 @@ public class CLIMenu {
 
         try {
             List<Path> movedFiles = controller.quarantine(filesToQuarantine);
+            lastScanResults = List.of();
+            hasScanned = false;
             System.out.println(movedFiles.size() + " file(s) moved to quarantine.");
+            System.out.println("Scan the folder again to refresh the duplicate results.");
         } catch (IOException | IllegalArgumentException e) {
             System.out.println("Could not quarantine the selected files: " + e.getMessage());
         }
@@ -226,7 +233,10 @@ public class CLIMenu {
 
         try {
             List<Path> restoredFiles = controller.restore(selectedFiles);
+            lastScanResults = List.of();
+            hasScanned = false;
             System.out.println(restoredFiles.size() + " file(s) restored.");
+            System.out.println("Scan the folder again to refresh the duplicate results.");
         } catch (IOException | IllegalArgumentException e) {
             System.out.println("Could not restore the selected files: " + e.getMessage());
         }
