@@ -15,7 +15,7 @@ public class AppSettingsTest {
         
         originalSettings.setThreadPoolSize(12);
         originalSettings.setMinFileSize(500);
-        originalSettings.setExtention(".pdf");
+        originalSettings.setExtensionFilter(".pdf");
         originalSettings.setQuarantine("./safe_zone");
         originalSettings.setLastScanPath("C:/test/path");
 
@@ -29,7 +29,7 @@ public class AppSettingsTest {
         assertNotNull(loadedSettings, "Loaded settings should not be null");
         assertEquals(12, loadedSettings.getThreadPoolSize(), "Thread pool size mismatch");
         assertEquals(500, loadedSettings.getMinFileSize(), "Minimum file size mismatch");
-        assertEquals(".pdf", loadedSettings.getExtention(), "Extension filter mismatch");
+        assertEquals(".pdf", loadedSettings.getExtensionFilter(), "Extension filter mismatch");
         assertEquals("./safe_zone", loadedSettings.getQuarantine(), "Quarantine path mismatch");
         assertEquals("C:/test/path", loadedSettings.getLastScanPath(), "Last scan path mismatch");
     }
