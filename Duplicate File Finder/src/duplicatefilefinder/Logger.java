@@ -8,12 +8,12 @@ import java.time.format.DateTimeFormatter;
 
 public final class Logger {
     private static final Logger INSTANCE = new Logger();
-    // formart to format
+  
     private static final DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private final Path logFile;
     
     private Logger(){
-        // change diff to dff to match readme config
+        
         this.logFile = Path.of("logs", "dff.log");
         try{
             Files.createDirectories(logFile.getParent());

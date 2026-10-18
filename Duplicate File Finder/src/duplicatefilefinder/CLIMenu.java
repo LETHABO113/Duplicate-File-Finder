@@ -2,7 +2,6 @@ package duplicatefilefinder;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -27,9 +26,12 @@ public class CLIMenu {
     public void launch() {
         boolean running = true;
         try {
-            while (running && input.hasNextLine()) {
+            while (running) {
                 showMenu();
-                int choice = readMenuChoice();
+                Integer choice = readMenuChoice();
+                if (choice == null) {
+                    break;
+                }
 
                 switch (choice) {
                     case 1 -> scanDirectory();
@@ -61,10 +63,14 @@ public class CLIMenu {
         System.out.println("7. Exit");
     }
 
-    private int readMenuChoice() {
+    private Integer readMenuChoice() {
         System.out.print("Choose an option: ");
+        if (!input.hasNextLine()) {
+            return null;
+        }
+
         try {
-            return Integer.parseInt(readLine().trim());
+            return Integer.parseInt(input.nextLine().trim());
         } catch (NumberFormatException e) {
             return -1;
         }
@@ -82,7 +88,7 @@ public class CLIMenu {
             lastScanResults = controller.scanDirectory(Path.of(folder));
             hasScanned = true;
             showResults(lastScanResults);
-        } catch (InvalidPathException | IOException e) {
+        } catch (IOException | IllegalArgumentException e) {
             System.out.println("Could not scan that folder: " + e.getMessage());
         }
     }

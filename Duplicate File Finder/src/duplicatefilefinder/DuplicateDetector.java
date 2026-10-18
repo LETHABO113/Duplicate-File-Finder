@@ -26,20 +26,12 @@ public class DuplicateDetector {
         this.hashCalculator = hashCalculator;
     }
 
-    /**
-     * Overloaded helper that defaults to SHA-256.
-     */
+
     public List<DuplicateGroup<File>> findDuplicates(List<File> files) {
         return findDuplicates(files, DEFAULT_ALGORITHM);
     }
 
-    /**
-     * Main entry point called by AppController.
-     *
-     * @param files     List of scanned files from FileScanner
-     * @param algorithm Hash algorithm name (e.g., "SHA-256" or "MD5")
-     * @return List of confirmed DuplicateGroup<File> sorted by wasted space (descending)
-     */
+    
     public List<DuplicateGroup<File>> findDuplicates(List<File> files, String algorithm) {
         if (files == null || files.size() < 2) {
             return Collections.emptyList();
@@ -47,10 +39,10 @@ public class DuplicateDetector {
 
         String hashAlgo = (algorithm == null || algorithm.isBlank()) ? DEFAULT_ALGORITHM : algorithm;
 
-        // Step 1: Group files by exact byte size
+        
         Map<Long, List<File>> sizeGroups = groupBySize(files);
 
-        // Step 2: Collect only files that share the same size with at least 1 other file
+       
         List<File> sameSizeCandidates = new ArrayList<>();
         for (List<File> group : sizeGroups.values()) {
             if (group.size() > 1) {
@@ -62,7 +54,7 @@ public class DuplicateDetector {
             return Collections.emptyList();
         }
 
-        // Step 3: Hash candidates in parallel using HashCalculator
+        
         Map<File, String> fileHashes;
         try {
             fileHashes = hashCalculator.calculateHashes(sameSizeCandidates, hashAlgo);
@@ -76,7 +68,7 @@ public class DuplicateDetector {
                     .add(entry.getKey());
         }
 
-        // Step 4: Any hash group with more than 1 file is a confirmed duplicate group
+       
         List<DuplicateGroup<File>> confirmedDuplicates = new ArrayList<>();
         for (Map.Entry<String, List<File>> entry : hashGroups.entrySet()) {
             List<File> matchingFiles = entry.getValue();
@@ -86,7 +78,7 @@ public class DuplicateDetector {
             }
         }
 
-        // Sort largest wasted space first for CLI and GUI display
+        
         Collections.sort(confirmedDuplicates);
         return confirmedDuplicates;
     }

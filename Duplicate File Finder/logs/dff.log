@@ -1,0 +1,75 @@
+[2026-10-18 13:49:23] INFO - Starting duplicate file finde in CLImode
+[2026-10-18 13:49:23] INFO - AppController initialized
+[2026-10-18 13:50:36] INFO - Starting duplicate file finde in CLImode
+[2026-10-18 13:50:36] INFO - AppController initialized
+[2026-10-18 13:52:12] INFO - Starting duplicate file finde in CLImode
+[2026-10-18 13:52:12] INFO - AppController initialized
+[2026-10-18 13:52:52] INFO - Starting duplicate file finde in CLImode
+[2026-10-18 13:52:52] INFO - AppController initialized
+[2026-10-18 13:53:14] INFO - Scanning directory: C:\Users\Ntokozo\Documents\Codex\DFF-Demo-Files
+[2026-10-18 13:53:14] INFO - Found 3 candidate files
+[2026-10-18 13:53:14] INFO - Scan complete: 1 duplicate groups in 27 ms
+[2026-10-18 13:59:54] INFO - Starting duplicate file finde in CLImode
+[2026-10-18 13:59:54] INFO - AppController initialized
+[2026-10-18 14:00:08] INFO - Scanning directory: C:\Users\Ntokozo\Documents\Codex\DFF-Demo-Files
+[2026-10-18 14:00:08] INFO - Found 3 candidate files
+[2026-10-18 14:00:08] INFO - Scan complete: 1 duplicate groups in 41 ms
+[2026-10-18 14:01:18] INFO - Application exited normally
+[2026-10-18 14:01:42] INFO - Starting duplicate file finde in CLImode
+[2026-10-18 14:01:42] INFO - AppController initialized
+[2026-10-18 14:02:40] INFO - Scanning directory: C:\Users\Ntokozo\Documents\Codex\DFF-Demo-Files
+[2026-10-18 14:02:40] INFO - Found 3 candidate files
+[2026-10-18 14:02:40] INFO - Scan complete: 1 duplicate groups in 29 ms
+[2026-10-18 14:03:03] INFO - Exporting 1 group(s) as CSV
+[2026-10-18 14:03:03] INFO - Export complete: C:\Users\Ntokozo\Documents\Codex\DFF-Demo-Files\duplicate-report.csv
+[2026-10-18 14:04:17] INFO - Quarantining 1 file(s)
+[2026-10-18 14:04:17] INFO - Quarantined file: C:\Users\Ntokozo\Documents\Codex\DFF-Demo-Files\notes-copy.txt
+[2026-10-18 14:04:17] INFO - Quarantine completed: 1 file(s) moved
+[2026-10-18 14:05:10] ERROR - Error during startup - Path does not exist: xfe
+[2026-10-18 14:06:03] INFO - Starting duplicate file finde in CLImode
+[2026-10-18 14:06:03] INFO - AppController initialized
+[2026-10-18 14:06:24] INFO - Scanning directory: C:\Users\Ntokozo\Documents\Codex\DFF-Demo-Files
+[2026-10-18 14:06:24] INFO - Found 3 candidate files
+[2026-10-18 14:06:24] INFO - Scan complete: 0 duplicate groups in 9 ms
+[2026-10-18 14:16:53] INFO - Starting duplicate file finde in CLImode
+[2026-10-18 14:16:53] INFO - AppController initialized
+[2026-10-18 14:17:26] INFO - Restoring 1 file(s)
+[2026-10-18 14:17:26] INFO - Restored file: C:\Users\Ntokozo\Documents\Codex\DFF-Demo-Files\notes-copy.txt
+[2026-10-18 14:17:26] INFO - Restore complete: 1 file(s) restored
+[2026-10-18 14:18:03] INFO - Scanning directory: C:\Users\Ntokozo\Documents\Codex\DFF-Demo-Files
+[2026-10-18 14:18:03] INFO - Found 4 candidate files
+[2026-10-18 14:18:03] INFO - Scan complete: 1 duplicate groups in 28 ms
+[2026-10-18 14:18:28] INFO - Exporting 1 group(s) as CSV
+[2026-10-18 14:18:28] INFO - Export complete: C:\Users\Ntokozo\Documents\Codex\DFF-Demo-Files\duplicate-report.csv
+[2026-10-18 14:18:45] INFO - Quarantining 1 file(s)
+[2026-10-18 14:18:45] INFO - Quarantined file: C:\Users\Ntokozo\Documents\Codex\DFF-Demo-Files\notes.txt
+[2026-10-18 14:18:45] INFO - Quarantine completed: 1 file(s) moved
+[2026-10-18 14:18:58] INFO - Restoring 1 file(s)
+[2026-10-18 14:18:58] INFO - Restored file: C:\Users\Ntokozo\Documents\Codex\DFF-Demo-Files\notes.txt
+[2026-10-18 14:18:58] INFO - Restore complete: 1 file(s) restored
+[2026-10-18 14:19:24] INFO - Application exited normally
+[2026-10-18 14:44:24] INFO - Starting duplicate file finde in CLImode
+[2026-10-18 14:44:24] INFO - AppController initialized
+[2026-10-18 14:47:32] INFO - Starting duplicate file finde in CLImode
+[2026-10-18 14:47:32] INFO - AppController initialized
+[2026-10-18 14:47:46] INFO - Scanning directory: C:\Users\Ntokozo\CPUT\2nd Year - 2026\Software Design 2\Duplicate-File-Finder\Duplicate File Finder\DFF-Video-Demo
+[2026-10-18 14:47:46] INFO - Found 3 candidate files
+[2026-10-18 14:47:47] INFO - Scan complete: 1 duplicate groups in 45 ms
+[2026-10-18 14:52:28] INFO - Starting duplicate file finde in CLImode
+[2026-10-18 14:52:28] INFO - AppController initialized
+[2026-10-18 14:52:34] INFO - Scanning directory: C:\Users\Ntokozo\CPUT\2nd Year - 2026\Software Design 2\Duplicate-File-Finder\Duplicate File Finder\DFF-Video-Demo
+[2026-10-18 14:52:34] INFO - Found 3 candidate files
+[2026-10-18 14:52:34] INFO - Scan complete: 1 duplicate groups in 62 ms
+[2026-10-18 14:53:55] INFO - Quarantining 1 file(s)
+[2026-10-18 14:53:55] INFO - Quarantined file: C:\Users\Ntokozo\CPUT\2nd Year - 2026\Software Design 2\Duplicate-File-Finder\Duplicate File Finder\DFF-Video-Demo\notes-copy.txt
+[2026-10-18 14:53:55] INFO - Quarantine completed: 1 file(s) moved
+[2026-10-18 14:54:06] INFO - Scanning directory: C:\Users\Ntokozo\CPUT\2nd Year - 2026\Software Design 2\Duplicate-File-Finder\Duplicate File Finder\DFF-Video-Demo
+[2026-10-18 14:54:06] INFO - Found 2 candidate files
+[2026-10-18 14:54:06] INFO - Scan complete: 0 duplicate groups in 7 ms
+[2026-10-18 14:54:32] INFO - Restoring 1 file(s)
+[2026-10-18 14:54:32] INFO - Restored file: C:\Users\Ntokozo\CPUT\2nd Year - 2026\Software Design 2\Duplicate-File-Finder\Duplicate File Finder\DFF-Video-Demo\notes-copy.txt
+[2026-10-18 14:54:32] INFO - Restore complete: 1 file(s) restored
+[2026-10-18 14:54:43] INFO - Scanning directory: C:\Users\Ntokozo\CPUT\2nd Year - 2026\Software Design 2\Duplicate-File-Finder\Duplicate File Finder\DFF-Video-Demo
+[2026-10-18 14:54:43] INFO - Found 3 candidate files
+[2026-10-18 14:54:43] INFO - Scan complete: 1 duplicate groups in 7 ms
+[2026-10-18 14:55:01] INFO - Application exited normally

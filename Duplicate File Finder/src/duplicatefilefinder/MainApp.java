@@ -4,7 +4,7 @@ import javax.swing.SwingUtilities;
 
 public class MainApp {
     
-    //operating modes
+    
     public enum Mode {CLI, GUI}
     
     public static void main(String[] args){

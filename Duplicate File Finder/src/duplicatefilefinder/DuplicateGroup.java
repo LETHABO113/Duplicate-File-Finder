@@ -20,7 +20,7 @@ public class DuplicateGroup<T> implements Serializable, Comparable<DuplicateGrou
         this.files = files != null ? new ArrayList<>(files) : new ArrayList<>();
     }
 
-    // Convenience constructor in case a caller passes only hash and files
+    
     public DuplicateGroup(String hash, List<T> files) {
         this.hash = hash;
         this.files = files != null ? new ArrayList<>(files) : new ArrayList<>();
@@ -47,10 +47,7 @@ public class DuplicateGroup<T> implements Serializable, Comparable<DuplicateGrou
         return files.size();
     }
 
-    /**
-     * Calculates wasted disk space in bytes:
-     * 1 copy is the original to keep, and (count - 1) copies are wasted space.
-     */
+  
     public long getWastedSpace() {
         if (files.size() <= 1) {
             return 0L;
