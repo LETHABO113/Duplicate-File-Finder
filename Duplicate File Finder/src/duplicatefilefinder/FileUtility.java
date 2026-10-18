@@ -28,14 +28,13 @@ public class FileUtility {
         }
     }
 
-    public static void ensureDirectory(Path dir){
+    public static void ensureDirectory(Path dir) throws IOException {
         if (dir == null){
             throw new IllegalArgumentException("Null dir");
         }
         if (Files.exists(dir)) {
-            if (!File.isDirectory(dir)){
+            if (!Files.isDirectory(dir)){
                 throw new IllegalArgumentException("Not a dir: " + dir);
-                return ;
             }
         }    
         Files.createDirectories(dir);
@@ -45,11 +44,11 @@ public class FileUtility {
         return file != null && file.exists() && file.canRead();
     }
 
-    public static Path getCanonicalPath(File file) throws IOException{
+    public static Path getCanonicalPath(File file) throws IOException {
         if (file == null){
             throw new IllegalArgumentException("Null file");
-            return file.getCanonicalFile().toPath();
         }
+        return file.getCanonicalFile().toPath();
     }
 
     public static String getExtentsion(File file){

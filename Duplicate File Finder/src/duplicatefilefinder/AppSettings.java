@@ -1,49 +1,95 @@
 package duplicatefilefinder;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class AppSettings implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private int threadPoolSize = 8;
+    private int threadPoolSize = Math.max(1, Runtime.getRuntime().availableProcessors());
     private long minFileSize = 1;
-    private String extention = ".*"; 
-    private String quarantine = "./quarantine";
+    private String extensionFilter = "";
+    private String quarantine = "quarantine";
     private String lastScanPath = "";
 
-    public AppSettings() {
+    public int getThreadPoolSize() {
+        return threadPoolSize;
     }
 
-    // Getters and Setters matching AppController
-    public int getThreadPoolSize() { return threadPoolSize; }
-    public void setThreadPoolSize(int threadPoolSize) { this.threadPoolSize = threadPoolSize; }
+    public void setThreadPoolSize(int threadPoolSize) {
+        if (threadPoolSize < 1) {
+            throw new IllegalArgumentException("Thread pool size must be at least 1");
+        }
+        this.threadPoolSize = threadPoolSize;
+    }
 
-    public long getMinFileSize() { return minFileSize; }
-    public void setMinFileSize(long minFileSize) { this.minFileSize = minFileSize; }
+    public long getMinFileSize() {
+        return minFileSize;
+    }
 
-    public String getExtention() { return extention; }
-    public void setExtention(String extention) { this.extention = extention; }
+    public void setMinFileSize(long minFileSize) {
+        if (minFileSize < 0) {
+            throw new IllegalArgumentException("Minimum file size cannot be negative");
+        }
+        this.minFileSize = minFileSize;
+    }
 
-    public String getQuarantine() { return quarantine; }
-    public void setQuarantine(String quarantine) { this.quarantine = quarantine; }
+    public String getExtensionFilter() {
+        return extensionFilter;
+    }
 
-    public String getLastScanPath() { return lastScanPath; }
-    public void setLastScanPath(String lastScanPath) { this.lastScanPath = lastScanPath; }
+    public void setExtensionFilter(String extensionFilter) {
+        this.extensionFilter = extensionFilter == null ? "" : extensionFilter.trim();
+    }
 
-    // Save settings to disk
+    public String getQuarantine() {
+        return quarantine;
+    }
+
+    public void setQuarantine(String quarantine) {
+        if (quarantine == null || quarantine.isBlank()) {
+            throw new IllegalArgumentException("Quarantine directory cannot be empty");
+        }
+        this.quarantine = quarantine.trim();
+    }
+
+    public String getLastScanPath() {
+        return lastScanPath;
+    }
+
+    public void setLastScanPath(String lastScanPath) {
+        this.lastScanPath = lastScanPath == null ? "" : lastScanPath;
+    }
+
     public void save(Path path) throws IOException {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path.toFile()))) {
-            oos.writeObject(this);
+        if (path == null) {
+            throw new IllegalArgumentException("Settings path cannot be null");
+        }
+        Path parent = path.toAbsolutePath().getParent();
+        if (parent != null) {
+            Files.createDirectories(parent);
+        }
+        try (ObjectOutputStream output = new ObjectOutputStream(Files.newOutputStream(path))) {
+            output.writeObject(this);
         }
     }
 
-    // Load settings from disk
     public static AppSettings load(Path path) throws IOException {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path.toFile()))) {
-            return (AppSettings) ois.readObject();
+        if (path == null) {
+            throw new IllegalArgumentException("Settings path cannot be null");
+        }
+        try (ObjectInputStream input = new ObjectInputStream(Files.newInputStream(path))) {
+            Object savedSettings = input.readObject();
+            if (savedSettings instanceof AppSettings settings) {
+                return settings;
+            }
+            throw new IOException("The settings file has an unexpected format");
         } catch (ClassNotFoundException e) {
-            throw new IOException("Failed to load settings class", e);
+            throw new IOException("Could not read saved settings", e);
         }
     }
 }

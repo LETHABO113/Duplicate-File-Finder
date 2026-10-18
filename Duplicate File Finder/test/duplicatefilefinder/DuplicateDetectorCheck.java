@@ -1,72 +1,43 @@
 package duplicatefilefinder;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Stream;
 
-public class DuplicateDetector {
+public class DuplicateDetectorCheck {
+    public static void main(String[] args) throws Exception {
+        Path folder = Files.createTempDirectory("duplicate-detector-check");
+        Path first = folder.resolve("first.txt");
+        Path second = folder.resolve("second.txt");
+        Path different = folder.resolve("different.txt");
+        Files.writeString(first, "same content");
+        Files.writeString(second, "same content");
+        Files.writeString(different, "other content");
 
-    private static final String DEFAULT_ALGORITHM = "SHA-256";
+        try (HashCalculator calculator = new HashCalculator(2)) {
+            DuplicateDetector detector = new DuplicateDetector(calculator);
+            List<DuplicateGroup<File>> groups = detector.findDuplicates(
+                    List.of(first.toFile(), second.toFile(), different.toFile()));
 
-    public DuplicateDetector() {
-    }
-
-    public List<DuplicateGroup<File>> findDuplicates(List<File> files) {
-        return findDuplicates(files, DEFAULT_ALGORITHM);
-    }
-
-    public List<DuplicateGroup<File>> findDuplicates(List<File> files, String algorithm) {
-        if (files == null || files.size() < 2) {
-            return Collections.emptyList();
+            check(groups.size() == 1, "Only matching file contents should form a duplicate group");
+            check(groups.get(0).getCount() == 2, "The duplicate group should contain both matching files");
+            check(groups.get(0).getWastedSpace() == Files.size(first), "Wasted space should count one extra copy");
+            check(detector.findDuplicates(List.of(first.toFile())).isEmpty(),
+                    "A single file cannot form a duplicate group");
         }
 
-        String hashAlgo = (algorithm == null || algorithm.isBlank()) ? DEFAULT_ALGORITHM : algorithm;
-
-        Map<Long, List<File>> sizeGroups = groupBySize(files);
-
-        List<File> sameSizeCandidates = new ArrayList<>();
-        for (List<File> group : sizeGroups.values()) {
-            if (group.size() > 1) {
-                sameSizeCandidates.addAll(group);
+        try (Stream<Path> paths = Files.walk(folder)) {
+            for (Path path : paths.sorted((left, right) -> right.compareTo(left)).toList()) {
+                Files.deleteIfExists(path);
             }
         }
-
-        if (sameSizeCandidates.isEmpty()) {
-            return Collections.emptyList();
-        }
-
-        Map<String, List<File>> hashGroups =
-                HashCalculator.groupFilesByHashParallel(sameSizeCandidates, hashAlgo);
-
-        // Step 4: Any hash group with more than 1 file is a confirmed duplicate group
-        List<DuplicateGroup<File>> confirmedDuplicates = new ArrayList<>();
-        for (Map.Entry<String, List<File>> entry : hashGroups.entrySet()) {
-            List<File> matchingFiles = entry.getValue();
-            if (matchingFiles != null && matchingFiles.size() > 1) {
-                long fileSize = matchingFiles.get(0).length();
-                confirmedDuplicates.add(new DuplicateGroup<>(entry.getKey(), fileSize, matchingFiles));
-            }
-        }
-
-        Collections.sort(confirmedDuplicates);
-        return confirmedDuplicates;
     }
 
-    public Map<Long, List<File>> groupBySize(List<File> files) {
-        Map<Long, List<File>> sizeMap = new HashMap<>();
-        if (files == null) {
-            return sizeMap;
+    private static void check(boolean condition, String message) {
+        if (!condition) {
+            throw new AssertionError(message);
         }
-
-        for (File file : files) {
-            if (file != null && file.exists() && file.isFile()) {
-                long size = file.length();
-                sizeMap.computeIfAbsent(size, k -> new ArrayList<>()).add(file);
-            }
-        }
-        return sizeMap;
     }
 }

@@ -26,23 +26,27 @@ public class CLIMenu {
 
     public void launch() {
         boolean running = true;
-        while (running && input.hasNextLine()) {
-            showMenu();
-            int choice = readMenuChoice();
+        try {
+            while (running && input.hasNextLine()) {
+                showMenu();
+                int choice = readMenuChoice();
 
-            switch (choice) {
-                case 1 -> scanDirectory();
-                case 2 -> showLastScan();
-                case 3 -> exportResults();
-                case 4 -> quarantineFiles();
-                case 5 -> restoreFiles();
-                case 6 -> showSettings();
-                case 7 -> running = false;
-                default -> System.out.println("Choose a number from 1 to 7.");
+                switch (choice) {
+                    case 1 -> scanDirectory();
+                    case 2 -> showLastScan();
+                    case 3 -> exportResults();
+                    case 4 -> quarantineDuplicates();
+                    case 5 -> restoreFiles();
+                    case 6 -> showSettings();
+                    case 7 -> running = false;
+                    default -> System.out.println("Choose a number from 1 to 7.");
+                }
             }
-        }
 
-        System.out.println("Duplicate File Finder closed.");
+            System.out.println("Duplicate File Finder closed.");
+        } finally {
+            controller.close();
+        }
     }
 
     private void showMenu() {
@@ -51,7 +55,7 @@ public class CLIMenu {
         System.out.println("1. Scan directory");
         System.out.println("2. View last scan result");
         System.out.println("3. Export results");
-        System.out.println("4. Quarantine files");
+        System.out.println("4. Quarantine duplicates");
         System.out.println("5. Restore from quarantine");
         System.out.println("6. Settings");
         System.out.println("7. Exit");
@@ -59,9 +63,8 @@ public class CLIMenu {
 
     private int readMenuChoice() {
         System.out.print("Choose an option: ");
-        String answer = readLine().trim();
         try {
-            return Integer.parseInt(answer);
+            return Integer.parseInt(readLine().trim());
         } catch (NumberFormatException e) {
             return -1;
         }
@@ -76,10 +79,9 @@ public class CLIMenu {
         }
 
         try {
-            Path directory = Path.of(folder);
-            lastScanResults = controller.scanDirectory(directory);
+            lastScanResults = controller.scanDirectory(Path.of(folder));
             hasScanned = true;
-            controller.printResults(lastScanResults);
+            showResults(lastScanResults);
         } catch (InvalidPathException | IOException e) {
             System.out.println("Could not scan that folder: " + e.getMessage());
         }
@@ -90,16 +92,31 @@ public class CLIMenu {
             System.out.println("There are no scan results to show. Scan a folder first.");
             return;
         }
-        if (lastScanResults.isEmpty()) {
-            System.out.println("The last scan found no duplicate groups.");
+        showResults(lastScanResults);
+    }
+
+    private void showResults(List<DuplicateGroup<File>> groups) {
+        if (groups.isEmpty()) {
+            System.out.println("No duplicate files were found.");
             return;
         }
-        controller.printResults(lastScanResults);
+
+        System.out.println("Duplicate groups found: " + groups.size());
+        for (int i = 0; i < groups.size(); i++) {
+            DuplicateGroup<File> group = groups.get(i);
+            System.out.println();
+            System.out.println("Group " + (i + 1) + " - " + group.getCount()
+                    + " files, " + group.getWastedSpace() + " bytes wasted");
+            System.out.println("SHA-256: " + group.getHash());
+            for (File file : group.getFiles()) {
+                System.out.println("  " + file.getAbsolutePath());
+            }
+        }
     }
 
     private void exportResults() {
         if (!hasScanned || lastScanResults.isEmpty()) {
-            System.out.println("There are no scan results to export. Scan a folder first.");
+            System.out.println("There are no duplicate results to export.");
             return;
         }
 
@@ -130,44 +147,58 @@ public class CLIMenu {
         }
     }
 
-    private void quarantineFiles() {
-        if (!hasScanned) {
-            System.out.println("Scan a folder first, then enter the paths you want to quarantine.");
-            return;
-        }
-        if (lastScanResults.isEmpty()) {
-            System.out.println("The last scan found no duplicate files to quarantine.");
+    private void quarantineDuplicates() {
+        if (!hasScanned || lastScanResults.isEmpty()) {
+            System.out.println("Scan a folder with duplicates first.");
             return;
         }
 
-        System.out.println("Enter each duplicate file path on its own line.");
-        System.out.println("Press Enter on an empty line when you are done.");
-        List<File> files = new ArrayList<>();
-        while (true) {
-            System.out.print("File path: ");
-            String pathText = readLine().trim();
-            if (pathText.isEmpty()) {
-                break;
-            }
-            try {
-                files.add(Path.of(pathText).toFile());
-            } catch (InvalidPathException e) {
-                System.out.println("That path is not valid.");
+        List<File> duplicateFiles = new ArrayList<>();
+        List<Integer> groupNumbers = new ArrayList<>();
+        for (int i = 0; i < lastScanResults.size(); i++) {
+            for (File file : lastScanResults.get(i).getFiles()) {
+                duplicateFiles.add(file);
+                groupNumbers.add(i);
             }
         }
 
-        if (files.isEmpty()) {
+        System.out.println("Choose the duplicate files to move. Keep at least one file in each group.");
+        for (int i = 0; i < duplicateFiles.size(); i++) {
+            System.out.println((i + 1) + ". Group " + (groupNumbers.get(i) + 1)
+                    + " - " + duplicateFiles.get(i).getAbsolutePath());
+        }
+        System.out.print("File numbers, separated by commas: ");
+        List<Integer> selectedNumbers = readNumberSelection(readLine(), duplicateFiles.size());
+        if (selectedNumbers.isEmpty()) {
             System.out.println("No files were selected.");
             return;
         }
-        if (!confirm("Move " + files.size() + " file(s) into quarantine? (y/n): ")) {
+
+        int[] filesSelectedByGroup = new int[lastScanResults.size()];
+        List<File> filesToQuarantine = new ArrayList<>();
+        for (int number : selectedNumbers) {
+            int index = number - 1;
+            filesToQuarantine.add(duplicateFiles.get(index));
+            filesSelectedByGroup[groupNumbers.get(index)]++;
+        }
+        for (int i = 0; i < filesSelectedByGroup.length; i++) {
+            if (filesSelectedByGroup[i] >= lastScanResults.get(i).getCount()) {
+                System.out.println("Keep at least one file from group " + (i + 1) + ".");
+                return;
+            }
+        }
+
+        if (!confirm("Move " + filesToQuarantine.size() + " file(s) into quarantine? (y/n): ")) {
             System.out.println("Quarantine cancelled.");
             return;
         }
 
         try {
-            List<Path> movedFiles = controller.quarantine(files);
+            List<Path> movedFiles = controller.quarantine(filesToQuarantine);
+            lastScanResults = List.of();
+            hasScanned = false;
             System.out.println(movedFiles.size() + " file(s) moved to quarantine.");
+            System.out.println("Scan the folder again to refresh the duplicate results.");
         } catch (IOException | IllegalArgumentException e) {
             System.out.println("Could not quarantine the selected files: " + e.getMessage());
         }
@@ -184,11 +215,16 @@ public class CLIMenu {
         for (int i = 0; i < quarantinedFiles.size(); i++) {
             System.out.println((i + 1) + ". " + quarantinedFiles.get(i));
         }
-        System.out.print("Enter the file numbers to restore, separated by commas: ");
-        String answer = readLine().trim();
-        List<Path> selectedFiles = selectQuarantinedFiles(answer, quarantinedFiles);
-        if (selectedFiles.isEmpty()) {
+        System.out.print("File numbers to restore, separated by commas: ");
+        List<Integer> selectedNumbers = readNumberSelection(readLine(), quarantinedFiles.size());
+        if (selectedNumbers.isEmpty()) {
+            System.out.println("No files were selected.");
             return;
+        }
+
+        List<Path> selectedFiles = new ArrayList<>(selectedNumbers.size());
+        for (int number : selectedNumbers) {
+            selectedFiles.add(quarantinedFiles.get(number - 1));
         }
         if (!confirm("Restore " + selectedFiles.size() + " file(s)? (y/n): ")) {
             System.out.println("Restore cancelled.");
@@ -197,15 +233,17 @@ public class CLIMenu {
 
         try {
             List<Path> restoredFiles = controller.restore(selectedFiles);
+            lastScanResults = List.of();
+            hasScanned = false;
             System.out.println(restoredFiles.size() + " file(s) restored.");
+            System.out.println("Scan the folder again to refresh the duplicate results.");
         } catch (IOException | IllegalArgumentException e) {
             System.out.println("Could not restore the selected files: " + e.getMessage());
         }
     }
 
-    private List<Path> selectQuarantinedFiles(String answer, List<Path> quarantinedFiles) {
-        if (answer.isEmpty()) {
-            System.out.println("No files were selected.");
+    private List<Integer> readNumberSelection(String answer, int maximum) {
+        if (answer.isBlank()) {
             return List.of();
         }
 
@@ -213,22 +251,18 @@ public class CLIMenu {
         for (String part : answer.split(",")) {
             try {
                 int number = Integer.parseInt(part.trim());
-                if (number < 1 || number > quarantinedFiles.size()) {
-                    System.out.println("Choose numbers from 1 to " + quarantinedFiles.size() + ".");
+                if (number < 1 || number > maximum) {
+                    System.out.println("Choose numbers from 1 to " + maximum + ".");
                     return List.of();
                 }
                 selectedNumbers.add(number);
             } catch (NumberFormatException e) {
-                System.out.println("Enter file numbers separated by commas, for example: 1, 3");
+                System.out.println("Enter numbers separated by commas, for example: 1, 3");
                 return List.of();
             }
         }
 
-        List<Path> selectedFiles = new ArrayList<>(selectedNumbers.size());
-        for (int number : selectedNumbers) {
-            selectedFiles.add(quarantinedFiles.get(number - 1));
-        }
-        return selectedFiles;
+        return new ArrayList<>(selectedNumbers);
     }
 
     private void showSettings() {
