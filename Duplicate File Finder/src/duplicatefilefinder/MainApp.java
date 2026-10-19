@@ -20,7 +20,7 @@ public class MainApp {
             
             switch (mode){
                 case GUI -> {
-                    SwingUtilities.invokeLater(() -> new MainWindow().setVisible(true));
+                    SwingUtilities.invokeLater(() -> new Main().setVisible(true));
                 }
                 case CLI -> {
                     new CLIMenu(controller).launch();

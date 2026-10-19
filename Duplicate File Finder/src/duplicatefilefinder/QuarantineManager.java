@@ -135,6 +135,55 @@ public class QuarantineManager {
 
         return restoredFiles;
     }
+    public synchronized List<Path> deleteAll(List<Path> quarantinedPaths)
+        throws IOException {
+
+    if (quarantinedPaths == null || quarantinedPaths.isEmpty()) {
+        throw new IllegalArgumentException("No files selected for deletion");
+    }
+
+    Map<Path, Path> activeEntries = readActiveEntries();
+    List<Path> deletedFiles = new ArrayList<>();
+
+    for (Path requestedPath : quarantinedPaths) {
+        if (requestedPath == null) {
+            throw new IllegalArgumentException(
+                    "Quarantined paths cannot contain null values");
+        }
+
+        Path quarantined = requestedPath.toAbsolutePath().normalize();
+
+        if (!quarantined.startsWith(quarantineDirectory)
+                || quarantined.equals(quarantineDirectory)) {
+            throw new IllegalArgumentException(
+                    "Path is outside the quarantine directory: " + quarantined);
+        }
+
+        if (!activeEntries.containsKey(quarantined)
+                || !Files.isRegularFile(quarantined, LinkOption.NOFOLLOW_LINKS)) {
+            throw new IOException(
+                    "No quarantined file is recorded at: " + quarantined);
+        }
+    }
+
+    for (Path requestedPath : quarantinedPaths) {
+        Path quarantined = requestedPath.toAbsolutePath().normalize();
+
+        Files.delete(quarantined);
+
+        writeAuditEntry(
+                "DELETE",
+                activeEntries.get(quarantined),
+                quarantined
+        );
+
+        deletedFiles.add(quarantined);
+
+        logger.info("Permanently deleted quarantined file: " + quarantined);
+    }
+
+    return deletedFiles;
+}
 
     public synchronized List<Path> listQuarantined() {
         try {
@@ -182,11 +231,11 @@ public class QuarantineManager {
             try {
                 Path original = decodePath(fields[2]);
                 Path quarantined = decodePath(fields[3]);
-                if (fields[1].equals("QUARANTINE")) {
-                    activeEntries.put(quarantined, original);
-                } else if (fields[1].equals("RESTORE")) {
-                    activeEntries.remove(quarantined);
-                }
+               if (fields[1].equals("QUARANTINE")) {
+                   activeEntries.put(quarantined, original);
+                } else if (fields[1].equals("RESTORE") || fields[1].equals("DELETE")) {
+                   activeEntries.remove(quarantined);
+               }
             } catch (IllegalArgumentException e) {
                 logger.warn("Skipping an invalid entry in the quarantine audit log");
             }
