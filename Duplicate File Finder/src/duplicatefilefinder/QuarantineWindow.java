@@ -35,6 +35,7 @@ public class QuarantineWindow extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        lblTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/q-files-icon.png"))); // NOI18N
         lblTitle.setText("Quarantined Files");
 
         tblQuarantined.setModel(new javax.swing.table.DefaultTableModel(
@@ -60,12 +61,15 @@ public class QuarantineWindow extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(jScrollPane2);
 
+        btnRestore.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/restore-selected-icon.png"))); // NOI18N
         btnRestore.setText("Restore Selected");
         btnRestore.addActionListener(this::btnRestoreActionPerformed);
 
+        btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/close-icon.png"))); // NOI18N
         btnClose.setText("Close");
         btnClose.addActionListener(this::btnCloseActionPerformed);
 
+        btnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/refresh-icon.png"))); // NOI18N
         btnRefresh.setText("Refresh");
         btnRefresh.addActionListener(this::btnRefreshActionPerformed);
 
@@ -75,8 +79,8 @@ public class QuarantineWindow extends javax.swing.JFrame {
             buttonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(buttonPanelLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(131, 131, 131)
+                .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(121, 121, 121)
                 .addComponent(btnRestore)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
                 .addComponent(btnClose)
@@ -98,7 +102,7 @@ public class QuarantineWindow extends javax.swing.JFrame {
         mainPanelLayout.setHorizontalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
-                .addGap(0, 26, Short.MAX_VALUE)
+                .addGap(0, 1, Short.MAX_VALUE)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1)
                     .addComponent(buttonPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))

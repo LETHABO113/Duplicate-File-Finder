@@ -16,6 +16,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="menuSelectDirectory">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/duplicatefilefinder/resources/directory-icon.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Select Directory"/>
               </Properties>
               <Events>
@@ -24,6 +27,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuStartScan">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/duplicatefilefinder/resources/scan-icon.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Start Scan"/>
               </Properties>
               <Events>
@@ -32,6 +38,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuExportResults">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/duplicatefilefinder/resources/export-results-icon.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Export Results"/>
               </Properties>
               <Events>
@@ -40,6 +49,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuExit">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/duplicatefilefinder/resources/close-icon.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Exit"/>
               </Properties>
               <Events>
@@ -55,6 +67,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="menuSettings">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/duplicatefilefinder/resources/settings-icon.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Settings"/>
               </Properties>
               <Events>
@@ -70,6 +85,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="menuDashboard">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/duplicatefilefinder/resources/dashboard-icon.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Dashboard"/>
               </Properties>
               <Events>
@@ -78,6 +96,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuResults">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/duplicatefilefinder/resources/results-icon.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Results"/>
               </Properties>
               <Events>
@@ -86,6 +107,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuQuarantine">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/duplicatefilefinder/resources/quarantine-icon.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Quarantine"/>
               </Properties>
               <Events>
@@ -101,6 +125,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="menuHowToUse">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/duplicatefilefinder/how-to-use-icon.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="How to Use"/>
               </Properties>
               <Events>
@@ -109,6 +136,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuAbout">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/duplicatefilefinder/resources/about-icon.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="About"/>
               </Properties>
               <Events>
@@ -163,12 +193,12 @@
                   <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="lblDirectory" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="lblDirectory" min="-2" pref="76" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="txtDirectory" max="32767" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="btnBrowse" min="-2" pref="95" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                          <Component id="btnBrowse" min="-2" pref="108" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="btnScan" min="-2" pref="86" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                       </Group>
@@ -203,9 +233,9 @@
                       <Component id="btnBrowse" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnScan" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="lblResults" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="jScrollPane1" pref="205" max="32767" attributes="0"/>
                   <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -221,6 +251,9 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="lblDirectory">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/duplicatefilefinder/resources/directory-icon.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Directory:"/>
           </Properties>
         </Component>
@@ -228,6 +261,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnBrowse">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/duplicatefilefinder/resources/browse-icon.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Browse..."/>
           </Properties>
           <Events>
@@ -236,6 +272,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnScan">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/duplicatefilefinder/resources/scan-icon.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Scan"/>
           </Properties>
           <Events>
@@ -269,6 +308,9 @@
         </Container>
         <Component class="javax.swing.JLabel" name="lblResults">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/duplicatefilefinder/resources/results-icon.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Results: "/>
           </Properties>
         </Component>
@@ -279,6 +321,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnDeleteSelected">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/duplicatefilefinder/resources/delete-icon.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Delete Selected"/>
           </Properties>
           <Events>
@@ -287,6 +332,12 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnQuarantine">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="90" green="90" red="90" type="rgb"/>
+            </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/duplicatefilefinder/resources/quarantine-icon.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value=" Quarantine"/>
           </Properties>
           <Events>

@@ -74,11 +74,14 @@ public class Main extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Duplicate File Finder");
 
+        lblDirectory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/directory-icon.png"))); // NOI18N
         lblDirectory.setText("Directory:");
 
+        btnBrowse.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/browse-icon.png"))); // NOI18N
         btnBrowse.setText("Browse...");
         btnBrowse.addActionListener(this::btnBrowseActionPerformed);
 
+        btnScan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/scan-icon.png"))); // NOI18N
         btnScan.setText("Scan");
         btnScan.addActionListener(this::btnScanActionPerformed);
 
@@ -101,13 +104,17 @@ public class Main extends javax.swing.JFrame {
         tblResults.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane1.setViewportView(tblResults);
 
+        lblResults.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/results-icon.png"))); // NOI18N
         lblResults.setText("Results: ");
 
         lblStatus.setText("Status:");
 
+        btnDeleteSelected.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/delete-icon.png"))); // NOI18N
         btnDeleteSelected.setText("Delete Selected");
         btnDeleteSelected.addActionListener(this::btnDeleteSelectedActionPerformed);
 
+        btnQuarantine.setBackground(new java.awt.Color(144, 144, 144));
+        btnQuarantine.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/quarantine-icon.png"))); // NOI18N
         btnQuarantine.setText(" Quarantine");
         btnQuarantine.addActionListener(this::btnQuarantineActionPerformed);
 
@@ -119,12 +126,12 @@ public class Main extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addComponent(lblDirectory)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtDirectory)
                         .addGap(18, 18, 18)
-                        .addComponent(btnBrowse, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31)
+                        .addComponent(btnBrowse, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(btnScan, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(34, 34, 34))
                     .addGroup(mainPanelLayout.createSequentialGroup()
@@ -164,18 +171,22 @@ public class Main extends javax.swing.JFrame {
 
         jMenu1.setText("File");
 
+        menuSelectDirectory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/directory-icon.png"))); // NOI18N
         menuSelectDirectory.setText("Select Directory");
         menuSelectDirectory.addActionListener(this::menuSelectDirectoryActionPerformed);
         jMenu1.add(menuSelectDirectory);
 
+        menuStartScan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/scan-icon.png"))); // NOI18N
         menuStartScan.setText("Start Scan");
         menuStartScan.addActionListener(this::menuStartScanActionPerformed);
         jMenu1.add(menuStartScan);
 
+        menuExportResults.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/export-results-icon.png"))); // NOI18N
         menuExportResults.setText("Export Results");
         menuExportResults.addActionListener(this::menuExportResultsActionPerformed);
         jMenu1.add(menuExportResults);
 
+        menuExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/close-icon.png"))); // NOI18N
         menuExit.setText("Exit");
         menuExit.addActionListener(this::menuExitActionPerformed);
         jMenu1.add(menuExit);
@@ -184,6 +195,7 @@ public class Main extends javax.swing.JFrame {
 
         jMenu2.setText("Edit");
 
+        menuSettings.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/settings-icon.png"))); // NOI18N
         menuSettings.setText("Settings");
         menuSettings.addActionListener(this::menuSettingsActionPerformed);
         jMenu2.add(menuSettings);
@@ -192,14 +204,17 @@ public class Main extends javax.swing.JFrame {
 
         jMenu3.setText("View");
 
+        menuDashboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/dashboard-icon.png"))); // NOI18N
         menuDashboard.setText("Dashboard");
         menuDashboard.addActionListener(this::menuDashboardActionPerformed);
         jMenu3.add(menuDashboard);
 
+        menuResults.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/results-icon.png"))); // NOI18N
         menuResults.setText("Results");
         menuResults.addActionListener(this::menuResultsActionPerformed);
         jMenu3.add(menuResults);
 
+        menuQuarantine.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/quarantine-icon.png"))); // NOI18N
         menuQuarantine.setText("Quarantine");
         menuQuarantine.addActionListener(this::menuQuarantineActionPerformed);
         jMenu3.add(menuQuarantine);
@@ -208,10 +223,12 @@ public class Main extends javax.swing.JFrame {
 
         jMenu4.setText("Help");
 
+        menuHowToUse.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/how-to-use-icon.png"))); // NOI18N
         menuHowToUse.setText("How to Use");
         menuHowToUse.addActionListener(this::menuHowToUseActionPerformed);
         jMenu4.add(menuHowToUse);
 
+        menuAbout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/about-icon.png"))); // NOI18N
         menuAbout.setText("About");
         menuAbout.addActionListener(this::menuAboutActionPerformed);
         jMenu4.add(menuAbout);
