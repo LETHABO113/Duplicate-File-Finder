@@ -110,12 +110,12 @@ public class Main extends javax.swing.JFrame {
 
         lblStatus.setText("Status:");
 
-        btnDeleteSelected.setBackground(new java.awt.Color(204, 204, 255));
+        btnDeleteSelected.setBackground(new java.awt.Color(255, 51, 51));
         btnDeleteSelected.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/delete-icon.png"))); // NOI18N
         btnDeleteSelected.setText("Delete Selected");
         btnDeleteSelected.addActionListener(this::btnDeleteSelectedActionPerformed);
 
-        btnQuarantine.setBackground(new java.awt.Color(144, 144, 144));
+        btnQuarantine.setBackground(new java.awt.Color(255, 153, 0));
         btnQuarantine.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/quarantine-icon.png"))); // NOI18N
         btnQuarantine.setText(" Quarantine");
         btnQuarantine.addActionListener(this::btnQuarantineActionPerformed);
@@ -171,6 +171,9 @@ public class Main extends javax.swing.JFrame {
                 .addGap(12, 12, 12))
         );
 
+        jMenuBar1.setOpaque(true);
+
+        jMenu1.setForeground(new java.awt.Color(255, 255, 255));
         jMenu1.setText("File");
 
         menuSelectDirectory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/directory-icon.png"))); // NOI18N
@@ -195,6 +198,7 @@ public class Main extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
+        jMenu2.setForeground(new java.awt.Color(255, 255, 255));
         jMenu2.setText("Edit");
 
         menuSettings.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/settings-icon.png"))); // NOI18N
