@@ -272,6 +272,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnScan">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="cc" red="33" type="rgb"/>
+            </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/duplicatefilefinder/resources/scan-icon.png"/>
             </Property>
@@ -321,6 +324,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnDeleteSelected">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="cc" red="cc" type="rgb"/>
+            </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/duplicatefilefinder/resources/delete-icon.png"/>
             </Property>

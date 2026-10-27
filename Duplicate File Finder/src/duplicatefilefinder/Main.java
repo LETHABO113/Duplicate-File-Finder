@@ -81,6 +81,7 @@ public class Main extends javax.swing.JFrame {
         btnBrowse.setText("Browse...");
         btnBrowse.addActionListener(this::btnBrowseActionPerformed);
 
+        btnScan.setBackground(new java.awt.Color(51, 204, 255));
         btnScan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/scan-icon.png"))); // NOI18N
         btnScan.setText("Scan");
         btnScan.addActionListener(this::btnScanActionPerformed);
@@ -109,6 +110,7 @@ public class Main extends javax.swing.JFrame {
 
         lblStatus.setText("Status:");
 
+        btnDeleteSelected.setBackground(new java.awt.Color(204, 204, 255));
         btnDeleteSelected.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/delete-icon.png"))); // NOI18N
         btnDeleteSelected.setText("Delete Selected");
         btnDeleteSelected.addActionListener(this::btnDeleteSelectedActionPerformed);
