@@ -1,0 +1,85 @@
+[2026-10-21 10:54:43] INFO - AppController initialized
+[2026-10-21 10:54:53] INFO - Scanning directory: C:\Users\letha\OneDrive\Documents\Euro Truck Simulator 2
+[2026-10-21 10:54:53] INFO - Found 326 candidate files
+[2026-10-21 10:54:53] INFO - Scan complete: 19 duplicate groups in 555 ms
+[2026-10-21 10:55:24] INFO - Scanning directory: C:\Users\letha\Downloads
+[2026-10-21 10:55:25] INFO - Found 5446 candidate files
+[2026-10-21 10:55:26] INFO - Scan complete: 85 duplicate groups in 2931 ms
+[2026-10-21 10:55:26] INFO - Scanning directory: C:\Users\letha\Downloads
+[2026-10-21 10:55:27] INFO - Found 5446 candidate files
+[2026-10-21 10:55:28] INFO - Scan complete: 85 duplicate groups in 1867 ms
+[2026-10-21 10:55:28] INFO - Scanning directory: C:\Users\letha\Downloads
+[2026-10-21 10:55:29] INFO - Found 5446 candidate files
+[2026-10-21 10:55:30] INFO - Scan complete: 85 duplicate groups in 1738 ms
+[2026-10-21 10:55:30] INFO - Scanning directory: C:\Users\letha\Downloads
+[2026-10-21 10:55:31] INFO - Found 5446 candidate files
+[2026-10-21 10:55:32] INFO - Scan complete: 85 duplicate groups in 1793 ms
+[2026-10-21 11:02:41] INFO - Quarantining 1 file(s)
+[2026-10-21 11:02:41] INFO - Quarantined file: C:\Users\letha\Downloads\Pablo\01April (1)\01April\textures\t4.jpg
+[2026-10-21 11:02:41] INFO - Quarantine completed: 1 file(s) moved
+[2026-10-21 11:02:54] INFO - AppController initialized
+[2026-10-21 11:03:07] INFO - Restoring 1 file(s)
+[2026-10-21 11:03:07] INFO - Restored file: C:\Users\letha\Downloads\Pablo\01April (1)\01April\textures\t4.jpg
+[2026-10-21 11:03:07] INFO - Restore complete: 1 file(s) restored
+[2026-10-21 11:03:43] INFO - Scanning directory: C:\Users\letha\OneDrive\Documents
+[2026-10-21 11:03:47] INFO - Found 9200 candidate files
+[2026-10-21 11:06:09] INFO - Scan complete: 1760 duplicate groups in 145904 ms
+[2026-10-21 11:06:09] INFO - Scanning directory: C:\Users\letha\OneDrive\Documents
+[2026-10-21 11:06:11] INFO - Found 9200 candidate files
+[2026-10-21 11:06:13] INFO - Scan complete: 1760 duplicate groups in 3625 ms
+[2026-10-21 11:06:13] INFO - Scanning directory: C:\Users\letha\OneDrive\Documents
+[2026-10-21 11:06:15] INFO - Found 9200 candidate files
+[2026-10-21 11:06:17] INFO - Scan complete: 1760 duplicate groups in 3792 ms
+[2026-10-21 12:50:22] INFO - AppController initialized
+[2026-10-21 12:50:43] INFO - Scanning directory: C:\Users\letha\Downloads
+[2026-10-21 12:50:45] INFO - Found 5446 candidate files
+[2026-10-21 12:50:46] INFO - Scan complete: 85 duplicate groups in 3207 ms
+[2026-10-21 12:50:46] INFO - Scanning directory: C:\Users\letha\Downloads
+[2026-10-21 12:50:48] INFO - Found 5446 candidate files
+[2026-10-21 12:50:49] INFO - Scan complete: 85 duplicate groups in 2187 ms
+[2026-10-21 15:38:02] INFO - AppController initialized
+[2026-10-26 21:41:28] INFO - AppController initialized
+[2026-10-26 21:41:43] INFO - Scanning directory: C:\Users\letha\OneDrive\Documents
+[2026-10-26 21:41:47] INFO - Found 9203 candidate files
+[2026-10-26 21:41:50] INFO - Scan complete: 1760 duplicate groups in 7600 ms
+[2026-10-26 21:41:51] INFO - Scanning directory: C:\Users\letha\OneDrive\Documents
+[2026-10-26 21:41:55] INFO - Found 9203 candidate files
+[2026-10-26 21:41:57] INFO - Scan complete: 1760 duplicate groups in 5946 ms
+[2026-10-26 21:41:57] INFO - Scanning directory: C:\Users\letha\OneDrive\Documents
+[2026-10-26 21:41:59] INFO - Found 9203 candidate files
+[2026-10-26 21:42:01] INFO - Scan complete: 1760 duplicate groups in 4329 ms
+[2026-10-26 21:42:44] INFO - AppController initialized
+[2026-10-26 21:43:21] INFO - AppController initialized
+[2026-10-26 21:43:51] INFO - Scanning directory: C:\Users\letha\OneDrive\Documents\SCHOOL 2024
+[2026-10-26 21:43:51] INFO - Found 577 candidate files
+[2026-10-26 21:43:52] INFO - Scan complete: 31 duplicate groups in 663 ms
+[2026-10-26 21:44:17] INFO - Exporting 31 group(s) as CSV
+[2026-10-26 21:44:17] INFO - Export complete: C:\Users\letha\Downloads\duplicate-results.csv
+[2026-10-27 19:38:29] INFO - AppController initialized
+[2026-10-27 19:56:12] INFO - AppController initialized
+[2026-10-27 20:28:15] INFO - AppController initialized
+[2026-10-27 20:28:25] INFO - Scanning directory: C:\Users\letha\OneDrive\Documents\GitHub
+[2026-10-27 20:28:26] INFO - Found 80 candidate files
+[2026-10-27 20:28:26] INFO - Scan complete: 17 duplicate groups in 207 ms
+[2026-10-27 21:33:51] INFO - Starting duplicate file finde in GUImode
+[2026-10-27 21:33:51] INFO - AppController initialized
+[2026-10-27 21:33:52] INFO - Application exited normally
+[2026-10-27 21:33:53] INFO - AppController initialized
+[2026-10-27 21:37:14] INFO - Starting duplicate file finde in GUImode
+[2026-10-27 21:37:14] INFO - AppController initialized
+[2026-10-27 21:37:14] INFO - Application exited normally
+[2026-10-27 21:37:14] INFO - AppController initialized
+[2026-10-27 21:39:47] INFO - AppController initialized
+[2026-10-27 21:39:56] INFO - Scanning directory: C:\Users\letha\OneDrive\Documents
+[2026-10-27 21:40:02] INFO - Found 9204 candidate files
+[2026-10-27 21:40:06] INFO - Scan complete: 1760 duplicate groups in 9811 ms
+[2026-10-27 21:40:06] INFO - Scanning directory: C:\Users\letha\OneDrive\Documents
+[2026-10-27 21:40:10] INFO - Found 9204 candidate files
+[2026-10-27 21:40:13] INFO - Scan complete: 1760 duplicate groups in 6958 ms
+[2026-10-27 21:40:13] INFO - Scanning directory: C:\Users\letha\OneDrive\Documents
+[2026-10-27 21:40:27] INFO - Found 9204 candidate files
+[2026-10-27 21:40:38] INFO - Scan complete: 1760 duplicate groups in 24472 ms
+[2026-10-27 21:40:38] INFO - Scanning directory: C:\Users\letha\OneDrive\Documents
+[2026-10-27 21:40:47] INFO - Found 9204 candidate files
+[2026-10-27 21:40:55] INFO - Scan complete: 1760 duplicate groups in 17215 ms
+[2026-10-27 21:52:15] INFO - AppController initialized

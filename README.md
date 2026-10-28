@@ -1,620 +1,361 @@
 # Duplicate File Finder
 
-**Group Project | Software Design | CPUT 2026**
-**Project Topic #2 | Team of 8**
+**Software Design group project | CPUT | 2026**
 
-[![Java](https://img.shields.io/badge/Java-17%2B-orange)]()
-[![Maven](https://img.shields.io/badge/Build-Maven-blue)]()
-[![Status](https://img.shields.io/badge/Status-In%20Development-yellow)]()
+![Java 25](https://img.shields.io/badge/Java-25-orange)
+![NetBeans](https://img.shields.io/badge/IDE-Apache%20NetBeans-blue)
+![Build](https://img.shields.io/badge/Build-Apache%20Ant-red)
 
-**Repo:** https://github.com/LETHABO113/Duplicate-file-finder
+Repository: https://github.com/LETHABO113/Duplicate-file-finder
 
----
+## Overview
 
-## Table of Contents
+Duplicate File Finder is a Java application that scans a selected directory and
+finds files with identical content, even when their names or locations are different.
+The application is available as both a command-line interface (CLI) and a Swing
+graphical user interface (GUI).
 
-1. [What Is This Project?](#1-what-is-this-project)
-2. [The Core Idea](#2-the-core-idea)
-3. [How We Compare Content — Hashing](#3-how-we-compare-content--hashing)
-4. [The Full Algorithm](#4-the-full-algorithm)
-5. [What the User Sees](#5-what-the-user-sees)
-6. [Why Quarantine and Not Delete?](#6-why-quarantine-and-not-delete)
-7. [Classes](#7-classes)
-8. [Syllabus Concepts Covered](#8-syllabus-concepts-covered)
-9. [The Team — Who Does What](#9-the-team--who-does-what)
-10. [Tools We Use](#10-tools-we-use)
-11. [Git Workflow](#11-git-workflow)
-12. [Project Structure](#12-project-structure)
-13. [How to Build and Run](#13-how-to-build-and-run)
-14. [Testing](#14-testing)
-15. [How We're Graded](#15-how-were-graded)
-16. [Graduate Attributes](#16-graduate-attributes)
-17. [What We Submit](#17-what-we-submit)
-18. [Risks and Mitigations](#18-risks-and-mitigations)
-19. [Communication](#19-communication)
-20. [Glossary](#20-glossary)
+Detected copies can be reviewed, exported to CSV or JSON, moved into quarantine,
+and restored. The GUI can also permanently delete selected duplicate copies after
+confirmation.
 
----
+> **Safety warning:** only test quarantine and deletion on disposable copies of files.
+> Do not test these actions on the only copy of personal or important data.
 
-## 1. What Is This Project?
+## Features
 
-We are building a **Duplicate File Finder** — a Java desktop tool that scans a folder,
-finds files that have the **exact same content** (even if they have different names),
-and lets the user safely **quarantine** the copies instead of deleting them.
+- Recursively scans folders and subfolders.
+- The scanning engine supports minimum-size and file-extension filters.
+- Groups files by size before hashing to avoid unnecessary work.
+- Calculates SHA-256 hashes in parallel using a thread pool.
+- Displays duplicate groups and estimated wasted space.
+- Provides both CLI and Swing GUI modes.
+- Exports results to CSV or JSON.
+- Quarantines files instead of immediately deleting them.
+- Restores quarantined files to their original paths.
+- Records application activity and quarantine actions in log files.
+- Includes support for serializing application settings between runs.
 
-> It finds wasted space caused by duplicate files and gives the user a safe way to
-> reclaim it.
+## How duplicate detection works
 
----
+File names are not reliable evidence that two files are duplicates. Two files can
+have different names but contain the same data, or have the same name but contain
+different data. The application therefore compares content:
 
-## 2. The Core Idea
+1. `FileScanner` recursively collects files that match the current filters.
+2. `DuplicateDetector` groups the files by byte size.
+3. Files with a unique size are skipped because they cannot have an exact copy in
+   the scanned set.
+4. `HashCalculator` calculates SHA-256 hashes for files in the remaining groups.
+5. Files with the same size and SHA-256 hash are placed in a `DuplicateGroup`.
+6. Duplicate groups are sorted by their estimated wasted space.
 
-*Understand this and you understand the whole project.*
+SHA-256 is collision-resistant and is suitable for identifying duplicate content in
+this project. The application does not decide duplicates from file names alone.
 
-### Case 1 — Same file, different name
+## Requirements
 
-```
-CPUT.jpg
-CPUT_FYE.jpg
-CPUT_FYE_DECEE.jpg
-```
+- Apache NetBeans with Java SE/Ant support
+- JDK 25, matching the current `javac.source` and `javac.target` project settings
+- Git, if the repository will be updated
 
-If these files contain the same picture, comparing names alone would miss them.
+The project has no external runtime dependencies. It is a **NetBeans Java Ant
+project**, not a Maven project, so there is no `pom.xml` and no `mvn` command is
+needed.
 
-### Case 2 — Different files, same name
+If the team later changes Java versions, everyone should update their JDK and the
+NetBeans project source level together.
 
-```
-/personal/cput.docx
-/work/cput.docx
-```
+## Open, build, and run
 
-Same name, but if the files contain different content, comparing names alone would
-flag a false positive.
+### NetBeans (recommended)
 
-**Conclusion:** we must compare **content**, not names.
+1. Clone or download this repository.
+2. In NetBeans, select **File > Open Project**.
+3. Open the inner `Duplicate File Finder` folder, which contains `build.xml` and
+   `nbproject`.
+4. Right-click the project and choose **Clean and Build**.
+5. Run the required application mode as described below.
 
----
+The build creates:
 
-## 3. How We Compare Content — Hashing
-
-A **hash** is a fingerprint of a file's content.
-
-- Feed the file into **SHA-256** → get back a short string like `a3f1cgy78...`
-- Same content → same hash
-- One byte different → completely different hash
-
-This is 100% reliable and much faster than reading every byte of every pair of files.
-
-### Note: hashing is slow — so we filter by size first
-
-- Files with **different sizes** cannot be identical. Skip them.
-- Only files with the **same size** get hashed.
-
-In a real folder, roughly 90% of files have a unique size, so we never hash them.
-**This is what makes our tool fast.**
-
----
-
-## 4. The Full Algorithm
-
-```
-Step 1: Walk the folder recursively → collect every file
-Step 2: Group by size → HashMap<size, list of files>
-Step 3: For each size group with more than 1 file:
-            compute SHA-256 of each file (in parallel, with threading)
-            group by hash → HashMap<hash, list of files>
-Step 4: Any hash group with more than 1 file = confirmed duplicate
+```text
+Duplicate File Finder/dist/Duplicate_File_Finder.jar
 ```
 
-That is the whole engine. Everything else is UI, safety, and reporting around it.
+### Application modes
 
-### Complexity
+`duplicatefilefinder.MainApp` is the configured entry point.
 
-Let **n** = number of files, **b** = average file size, **c** = same-size candidates,
-**T** = number of threads.
+- **CLI:** leave the project arguments empty, or use `--cli`.
+- **GUI:** open **Project Properties > Run**, set **Arguments** to `--gui`, and run
+  the project.
 
-| Stage | Complexity |
-|---|---|
-| Directory walk | O(n) |
-| Size grouping | O(n) average |
-| Hashing | O(c · b) |
-| Hash grouping | O(c) average |
-| Parallel hashing | ≈ O(c · b / T) |
+The CLI is the default when no argument is supplied.
 
----
+### Terminal (optional)
 
-## 5. What the User Sees
+If Apache Ant is installed and available on `PATH`:
 
-### CLI (console menu)
-
+```powershell
+cd "Duplicate File Finder"
+ant clean jar
+java -jar .\dist\Duplicate_File_Finder.jar --cli
+java -jar .\dist\Duplicate_File_Finder.jar --gui
 ```
-==== Duplicate File Finder ====
+
+NetBeans can run the Ant build internally, so a separate command-line Ant
+installation is not required when building from the IDE.
+
+## Basic use
+
+### CLI
+
+The CLI provides the following menu:
+
+```text
 1. Scan directory
 2. View last scan result
-3. Export to CSV
+3. Export results
 4. Quarantine duplicates
 5. Restore from quarantine
 6. Settings
 7. Exit
 ```
 
-After scanning:
-
-```
-Duplicate groups found: 42
-Wasted space:           1.87 GB
-
-Top 3 groups:
-  [d73brfs8...]  4 files · 612 MB · /pictures/downloaded
-  [he38nbfd...]  3 files ·  84 MB · /user/pictures
-  [h75ifka9...]  2 files ·  57 MB · /pictures/wallpapers
-```
+Start by scanning a directory. Review the reported groups before exporting or
+moving any file. When quarantining files, keep at least one copy from every duplicate
+group.
 
 ### GUI
 
-- **Choose Folder** button
-- Progress bar while scanning
-- Table of duplicate groups, sorted by wasted space
-- Checkboxes to select which files to act on
-- **Quarantine**, **Restore**, **Export** buttons
+1. Browse to the directory to scan.
+2. Start the scan and review the results table.
+3. Select only the duplicate copies on which an action should be performed.
+4. Export the results, quarantine selected copies, or open the quarantine window to
+   restore files.
+5. Confirm paths and selections carefully before any permanent deletion.
 
----
+## Project structure
 
-## 6. Why Quarantine and Not Delete?
+The structure below matches the NetBeans Ant project in this repository:
 
-**Safety.** Deleting is irreversible. Quarantine moves duplicates to a safe folder and
-writes an audit log. The user can always restore. This is also a **sustainability point**
-(socially responsible engineering).
+```text
+Duplicate-File-Finder/
+|-- .gitignore
+|-- README.md
+`-- Duplicate File Finder/
+    |-- build.xml
+    |-- manifest.mf
+    |-- nbproject/
+    |   |-- build-impl.xml
+    |   |-- genfiles.properties
+    |   |-- project.properties
+    |   `-- project.xml
+    |-- src/
+    |   `-- duplicatefilefinder/
+    |       |-- AppController.java
+    |       |-- AppSettings.java
+    |       |-- CLIMenu.java
+    |       |-- DuplicateDetector.java
+    |       |-- DuplicateGroup.java
+    |       |-- FileScanner.java
+    |       |-- FileUtility.java
+    |       |-- HashCalculator.java
+    |       |-- HashUtil.java
+    |       |-- Logger.java
+    |       |-- how-to-use-icon.png
+    |       |-- Main.java
+    |       |-- Main.form
+    |       |-- MainApp.java
+    |       |-- QuarantineManager.java
+    |       |-- QuarantineWindow.java
+    |       |-- QuarantineWindow.form
+    |       |-- ReportGenerator.java
+    |       `-- resources/
+    |-- test/                            # configured test source root; no committed tests
+    |-- sample-data/
+    |-- DFF-Video-Demo/
+    |-- logs/
+    `-- quarantine/
+```
 
----
+NetBeans generates `build/`, `dist/`, and `nbproject/private/` locally. These paths
+are excluded by `.gitignore`. The Ant project configures `test/` as its test source
+directory, but no automated test files are currently committed.
 
-## 7. Classes
+## Main classes
 
-| Class | What it does | Primary Owner |
-|---|---|---|
-| `MainApp` | Program entry point | 1 |
-| `AppController` | Wires everything together | 1 |
-| `CLIMenu` | Console menu loop | 5 |
-| `MainWindow` | GUI | 6 |
-| `FileScanner` | Walks folders recursively | 2 |
-| `HashCalculator` | Computes SHA-256 of one file | 3 |
-| `DuplicateDetector` | Size + hash grouping | 4 |
-| `DuplicateGroup<T>` | Holds one set of duplicates | 4 |
-| `QuarantineManager` | Moves/restores files; writes audit log | 3 |
-| `ReportGenerator` | Console, CSV, JSON output | 5 |
-| `Logger` | Timestamped activity log | 7 |
-| `AppSettings` | Saves/loads user settings | 7 |
-| `FileUtils`, `HashUtils` | Shared helpers | 8 |
-
-**Key point:** every class has a clear interface, so **no one is blocked by anyone else**.
-You can build your class and test it in isolation.
-
----
-
-## 8. Syllabus Concepts Covered
-
-| Concept | Where it appears |
+| Class | Responsibility |
 |---|---|
-| **Recursion** | `FileScanner` walks folders recursively |
-| **Collections** | `HashMap` for size and hash grouping |
-| **Generics** | `DuplicateGroup<T>` |
-| **File Handling** | `Files.walkFileTree`, `BufferedInputStream` |
-| **File Streams** | Reading file bytes for hashing |
-| **Serialization** | `AppSettings`, saved scan results |
-| **Algorithms** | Size-then-hash strategy; Big O analysis |
-| **Multithreading** | `ExecutorService` hashes files in parallel |
-| **Regex** | Extension filter |
-| **OOP** | Every class — encapsulation, abstraction |
-| **Error Handling** | Try/catch per file; scan continues on errors |
-| **GUI** | Swing window with progress bar |
-| **Testing** | JUnit 5 tests for every class |
+| `MainApp` | Application entry point and CLI/GUI mode selection |
+| `Main` | Main Swing window and user actions |
+| `QuarantineWindow` | Refreshes the quarantine list and restores selected files |
+| `AppController` | Connects scanning, detection, reporting, settings, and quarantine services |
+| `CLIMenu` | Command-line menu and input handling |
+| `FileScanner` | Recursive directory traversal and file filtering |
+| `DuplicateDetector` | Size grouping, hash grouping, and duplicate detection |
+| `DuplicateGroup<T>` | Stores a group of matching files and calculates wasted space |
+| `HashCalculator` | Parallel file hashing |
+| `HashUtil` | SHA-256 and hexadecimal conversion helpers |
+| `QuarantineManager` | Quarantine, restore, permanent deletion, and audit logging |
+| `ReportGenerator` | Console, CSV, and JSON result output |
+| `AppSettings` | Serializable application settings |
+| `Logger` | Timestamped application log |
+| `FileUtility` | Shared file and size helpers |
 
----
+## Team responsibilities
 
-## 9. The Team — Who Does What
+| Name | Student number | Primary role | Related responsibility |
+|---|---:|---|---|
+| **Lethabo** | 251511588 | Project Lead / Integrator | `MainApp`, `AppController` |
+| **Mahlogono** | 251565998 | File Scanner Developer | `FileScanner` |
+| **Ntokozo** | 250070480 | Hashing and Quarantine Developer | `HashCalculator`, `QuarantineManager` |
+| **Thapelo** | 231248822 | Duplicate Detection Developer | `DuplicateDetector`, `DuplicateGroup` |
+| **Nkazimulo** | 250448890 | CLI Developer | `CLIMenu`, `ReportGenerator` |
+| **Kungawo** | 250078732 | GUI Developer | Swing interface and CLI support |
+| **Amogelang** | 250336405 | Testing and QA Lead | `Logger`, `AppSettings`, test coordination |
+| **Buhle** | 251224239 | Documentation and UML Lead | `FileUtility`, `HashUtil`, documentation |
 
-| # | Name | Student No. | Primary Role | Backup Role |
-|---|---|---|---|---|
-| 1 | Ntokozo | 250070480 | **Project Lead / Integrator** | AppController |
-| 2 | Mahlogono | 251565998 | **FileScanner Developer** | HashCalculator |
-| 3 | Lethabo | 251511588 | **HashCalculator Developer** | QuarantineManager |
-| 4 | Thapelo | 231248822 | **DuplicateDetector Developer** | DuplicateGroup |
-| 5 | Nkazimulo | 250448890 | **CLI Developer** | ReportGenerator |
-| 6 | Kungawo | 250078732 | **GUI Developer** | CLIMenu |
-| 7 | Amogelang | 250336405 | **Testing & QA Lead** | Logger, AppSettings |
-| 8 | Buhle | 251224239 | **Documentation & UML Lead** | FileUtils, HashUtils |
+## Git workflow used by the team
 
-### What each role actually does
+The team worked mainly on the shared `develop` branch. The `main` branch was reserved
+for stable or submission versions, while active integration happened on `develop`.
 
-**Member 1 — Project Lead / Integrator**
-- Sets up the GitHub repo, `.gitignore`, Maven `pom.xml`
-- Writes `MainApp` and `AppController`
-- Reviews pull requests, keeps the schedule, resolves blockers
-- Runs the Week 6 demo
-
-**Member 2 — FileScanner Developer**
-- Writes recursive directory walker (`FileScanner`)
-- Handles extension regex filter, minimum size filter
-- Handles permission errors and symlink loops
-- Delivers: `FileScanner.java` + `FileScannerTest.java`
-
-**Member 3 — HashCalculator Developer**
-- Writes `HashCalculator` (SHA-256)
-- Adds multithreading with `ExecutorService`
-- Writes `QuarantineManager` (move/restore + audit log)
-- Delivers: `HashCalculator.java`, `QuarantineManager.java` + tests
-
-**Member 4 — DuplicateDetector Developer**
-- Writes `DuplicateDetector` (size pass + hash pass)
-- Writes generic `DuplicateGroup<T>`
-- Owns Big O analysis in the design doc
-- Delivers: `DuplicateDetector.java`, `DuplicateGroup.java` + tests
-
-**Member 5 — CLI Developer**
-- Writes `CLIMenu` (interactive menu loop)
-- Writes `ReportGenerator` (console, CSV, JSON)
-- Owns user input validation
-- Delivers: `CLIMenu.java`, `ReportGenerator.java` + tests
-
-**Member 6 — GUI Developer**
-- Writes `MainWindow` using Swing
-- Progress bar, results table, checkboxes
-- Integrates with `AppController`
-- Delivers: `MainWindow.java`
-
-**Member 7 — Testing & QA Lead**
-- Writes JUnit tests for all core classes
-- Builds `sample-data/` folder with edge cases
-- Writes `Logger` and `AppSettings`
-- Owns the Testing section of the report
-- Delivers: test suite, sample data, edge-case list
-
-**Member 8 — Documentation & UML Lead**
-- Maintains `README.md` and `docs/`
-- Draws the UML class diagram (draw.io or PlantUML)
-- Writes System Design Document (5–10 pages)
-- Writes GA2 + GA7 reflection
-- Delivers: `docs/UML_ClassDiagram.png`, `docs/SystemDesignDocument.pdf`, `docs/GA_Reflection.md`
-
-**Backup rule:** every class has a second person who understands it. If someone is
-sick, the project still moves.
-
----
-
-## 10. Tools We Use
-
-| Tool | Purpose |
-|---|---|
-| **Java JDK 17+** | Language runtime |
-| **Apache NetBeans** or **VS Code** | IDE |
-| **Maven** | Build tool (creates JAR, runs tests) |
-| **GitHub** | Version control, collaboration |
-| **JUnit 5** | Automated testing |
-| **draw.io** or **PlantUML** | UML diagrams |
-
----
-
-## 11. Git Workflow
-
-### Branches
-
-- `main` — protected. **Nobody commits directly.** Only merged via PR.
-- `develop` — integration branch.
-- `feature/<your-name>-<thing>` — your work branch.
-
-Example: `feature/thabo-filescanner`
-
-### The daily loop
+A typical update was:
 
 ```bash
-git checkout develop
+git switch develop
 git pull origin develop
-git checkout -b feature/yourname-task
-# ... do work ...
-git add .
-git commit -m "feat: describe what you did"
-git push origin feature/yourname-task
-# open a PR on GitHub → base: develop
+
+# Make and check the changes
+git status
+git add <changed-files>
+git commit -m "clear summary of the change"
+git push origin develop
 ```
 
-### Commit message rules
+The team **did not use a formal commit-message prefix convention**. Prefixes such as
+`feat:`, `fix:`, or `docs:` are therefore not project requirements. A short, clear
+message describing the actual change is enough.
 
-Use one of these prefixes:
+Because several people use the same branch, each member should pull before starting,
+check `git status` before committing, and coordinate before editing the same file.
+Feature branches can still be used for risky or experimental work, but they are not
+presented here as the workflow followed by every member.
 
-| Prefix | When to use |
+## Testing approach
+
+### Current state
+
+The Ant configuration declares `test/` as the test source directory, but the
+repository contains no committed automated test files. Although a JUnit 5 library
+reference exists in the NetBeans project properties, the repository does not contain
+a JUnit 5 test suite. This README therefore does not claim that the project uses
+JUnit 5.
+
+For the current version, the most practical approach is **repeatable manual functional
+testing** with disposable test folders and a written record of expected and actual
+results.
+
+### Recommended test process
+
+1. Copy `sample-data` to a temporary test location. Do not quarantine files directly
+   from the tracked repository folder.
+2. In NetBeans, run **Clean and Build** before the test session.
+3. Run the user-facing scan, export, and quarantine cases in both CLI and GUI modes.
+4. For every case, record the input, expected result, actual result, pass/fail status,
+   tester, and date.
+5. After quarantine or deletion tests, recreate the disposable test folder before the
+   next run so every test starts from the same state.
+6. Re-test scanning and export after any change to the detection code.
+
+### Baseline sample-data test
+
+With the default settings, scanning the included `sample-data` folder should report:
+
+- **2 duplicate groups**
+- `contentA.txt` and `contentB.txt` as one group
+- `empty1.txt` and `empty2.txt` as one group
+- `contentC.txt` as a unique file
+- **15 bytes** of total estimated wasted space on the current Windows checkout
+
+The two groups and their membership are the stable expectations. The exact byte total
+can be 13 bytes on an LF checkout or 15 bytes when Git converts the sample files to
+Windows CRLF line endings. The current Windows result was verified against the source
+on 28 October 2026.
+
+### Manual test matrix
+
+| Test case | Expected result |
 |---|---|
-| `feat:` | Adding a new feature |
-| `fix:` | Fixing a bug |
-| `docs:` | Documentation only |
-| `test:` | Adding or fixing tests |
-| `refactor:` | Reorganising code without changing behaviour |
-| `chore:` | Build files, `.gitignore`, config |
+| Included `sample-data` | Two groups with the file memberships listed above; 15 bytes on the current Windows checkout |
+| Same-size files with different content | Files are not reported as duplicates |
+| Unique files only | Zero duplicate groups |
+| Empty directory | Scan completes with zero groups |
+| Duplicate files in nested folders | Duplicates are found recursively |
+| Same name but different content | Files are not grouped together |
+| Different names but identical content | Files are grouped together |
+| Spaces and non-ASCII characters in paths | Files are scanned and displayed correctly |
+| CSV and JSON export | Output contains every displayed duplicate path |
+| Quarantine one copy | Selected copy is moved and at least one original copy remains |
+| Restore from quarantine | File returns to its original path with unchanged content |
+| Permanent deletion (GUI only) | Only the selected disposable file is removed after confirmation |
+| Large disposable files | Scan completes and elapsed time is recorded |
+| Invalid or unreadable location | A clear error is shown without corrupting other files |
 
-Example: `feat: add recursive directory walker to FileScanner`
+A simple test record can use this format:
 
-### Pull Request rules
+| ID | Test case | Expected | Actual | Pass/Fail | Tester | Date |
+|---|---|---|---|---|---|---|
+| T01 | Scan copied sample data | 2 groups with the expected membership |  |  |  |  |
 
-1. Push your branch to GitHub.
-2. Open a Pull Request into `develop`.
-3. At least **one teammate reviews and approves**.
-4. All tests must pass (`mvn test`).
-5. Then merge.
+### If automated tests are required later
 
-### Team rules
+Confirm the required framework with the lecturer before adding a dependency. If no
+testing framework is required, a small Java test runner in `test/duplicatefilefinder`
+can call the core classes and throw `AssertionError` when a check fails. If JUnit is
+required, use the version supported or specified for the course rather than assuming
+JUnit 5.
 
-1. **Pull `develop` every morning** before you start coding.
-2. **Push at least once a day** — even if work is incomplete.
-3. **One branch = one task.** Don't mix unrelated work.
-4. **Never commit to `main` or `develop` directly.** Always PR.
-5. **Keep PRs small.** Under 400 lines where possible.
-6. **Review PRs within 24 hours.** Unblock your teammate.
-7. **Never force-push.** Ask the Project Lead if you think you need to.
-8. **Add a JUnit test** for every new class before PR.
-9. **No secrets in the repo.** No passwords, no API keys.
-10. **Ask for help early.** A 5-minute question saves a 5-hour debug.
+Good first automation targets are `HashUtil`, `FileScanner`, `DuplicateDetector`,
+`ReportGenerator`, `QuarantineManager`, and `AppSettings`. A small test harness can
+construct `FileScanner` with different minimum-size and extension filters, and can
+save then reload `AppSettings` to compare the values. Tests that move or delete files
+must use a new temporary directory for every run.
 
----
+The current CLI and GUI Settings screens display the active settings but do not let
+the user edit the minimum size or extension filter. Those two behaviors should
+therefore be tested through code until editing controls are implemented.
 
-## 12. Project Structure
+## Runtime files
 
-```
-duplicate-file-finder/
-├── README.md
-├── .gitignore
-├── pom.xml
-├── docs/
-│   ├── SystemDesignDocument.pdf
-│   ├── UML_ClassDiagram.png
-│   ├── GA_Reflection.md
-│   └── team/
-├── sample-data/
-└── src/
-    ├── main/
-    │   ├── java/za/ac/cput/dff/
-    │   │   ├── MainApp.java
-    │   │   ├── AppController.java
-    │   │   ├── cli/CLIMenu.java
-    │   │   ├── gui/MainWindow.java
-    │   │   ├── core/
-    │   │   │   ├── FileScanner.java
-    │   │   │   ├── HashCalculator.java
-    │   │   │   ├── DuplicateDetector.java
-    │   │   │   ├── DuplicateGroup.java
-    │   │   │   └── QuarantineManager.java
-    │   │   ├── report/ReportGenerator.java
-    │   │   └── util/
-    │   │       ├── Logger.java
-    │   │       ├── AppSettings.java
-    │   │       ├── FileUtils.java
-    │   │       └── HashUtils.java
-    │   └── resources/config.properties
-    └── test/
-        └── java/za/ac/cput/dff/
-            ├── FileScannerTest.java
-            ├── HashCalculatorTest.java
-            ├── DuplicateDetectorTest.java
-            ├── QuarantineManagerTest.java
-            ├── ReportGeneratorTest.java
-            └── AppSettingsTest.java
-```
+Paths are resolved relative to the directory from which the application is started:
 
----
+- `config/settings.ser` stores serialized application settings.
+- `logs/dff.log` stores general activity messages.
+- `quarantine/` stores quarantined files by default.
+- `quarantine/audit.log` records original and quarantined paths for restoration.
 
-## 13. How to Build and Run
+These files can change while the application is running.
 
-### Build
+## Concepts demonstrated
 
-```bash
-mvn clean package
-```
-
-The runnable JAR is produced at `target/duplicate-file-finder-1.0.jar`.
-
-### Run — CLI
-
-```bash
-java -jar target/duplicate-file-finder-1.0.jar --cli
-```
-
-### Run — GUI
-
-```bash
-java -jar target/duplicate-file-finder-1.0.jar --gui
-```
-
-### Configuration
-
-Edit `src/main/resources/config.properties`:
-
-```properties
-hash.algorithm=SHA-256
-thread.pool.size=8
-min.file.size.bytes=1
-quarantine.dir=./quarantine
-log.file=./logs/dff.log
-```
-
----
-
-## 14. Testing
-
-### Run all tests
-
-```bash
-mvn test
-```
-
-### Test suite
-
-| Test class | Covers |
+| Concept | Project example |
 |---|---|
-| `FileScannerTest` | Recursion, filters, symlink handling, permission errors |
-| `HashCalculatorTest` | Known hashes, empty files, large files, non-ASCII names |
-| `DuplicateDetectorTest` | Size filter, hash grouping, nested duplicates |
-| `QuarantineManagerTest` | Move, restore, audit log integrity |
-| `ReportGeneratorTest` | CSV/JSON structure, escaping |
-| `AppSettingsTest` | Serialization round-trip |
+| Object-oriented design | Separate scanner, detector, controller, reporting, and UI classes |
+| Recursion | Traversing nested directories |
+| Collections | Grouping files by size and hash with maps and lists |
+| Generics | `DuplicateGroup<T>` |
+| File handling | Scanning, hashing, exporting, moving, restoring, and deleting files |
+| Serialization | Saving and loading `AppSettings` |
+| Multithreading | `ExecutorService` for parallel hashing |
+| Regular expressions | Extension filtering |
+| Error handling | Validation, logging, and per-directory scan warnings |
+| GUI development | Swing forms created with NetBeans |
 
-### Edge cases we must all test
+## Academic use
 
-- Empty files (0 bytes)
-- Files with same size but different content
-- Symbolic links / circular references
-- Permission-denied folders
-- Very large files (> 1 GB)
-- Non-ASCII and emoji filenames
-- Nested duplicates (A = B, B = C)
-- Same filename in different folders
-- Zero-file folders
-- Windows vs Linux path separators
+This repository was created as a CPUT Software Design 2 group project for 2026.
 
----
-
-## 15. How We're Graded
-
-| Category | Marks | How we hit it |
-|---|---|---|
-| Problem Definition | 10 | Clear statement in report + README |
-| System Design & Modularity | 15 | UML, one responsibility per class |
-| Data Structures & Algorithms | 15 | HashMap, generics, recursion, Big O |
-| Implementation Quality | 20 | OOP, comments, error handling |
-| Concurrency & Advanced Features | 10 | Thread pool, serialization, regex |
-| Testing & Evaluation | 10 | JUnit + edge cases + performance notes |
-| Documentation & Presentation | 10 | README + design doc + demo |
-| Graduate Attributes | 5 | GA2 + GA7 sections |
-| Team Collaboration | 5 | Git history, PRs, contribution table |
-
-**Total: 100%** — we cover every row.
-
----
-
-## 16. Graduate Attributes
-
-### GA2 — Application of Scientific and Engineering Knowledge
-
-> "We take theory from class — hashing, Big O, recursion, concurrency — and apply it to
-> a real engineering problem. We didn't just code; we **designed** a solution using
-> known Computer Science principles and justified every choice."
-
-Concrete examples:
-- **Algorithm design** — size pre-filtering reduces hashing work by an order of magnitude.
-- **Data structures** — `HashMap` gives O(1) average grouping; custom generic
-  `DuplicateGroup<T>` demonstrates generics and type safety.
-- **Recursion** — directory traversal is naturally recursive; we reasoned about base
-  cases and loop protection (symlinks).
-- **Concurrency** — `ExecutorService` parallelises I/O-bound hashing.
-- **Engineering process** — requirements, UML, modular design, unit testing, and
-  version control applied throughout.
-
-### GA7 — Sustainability and Impact of Engineering Activity
-
-> "Our tool reduces wasted storage. Fewer duplicates means less disk space, less backup
-> traffic, less cloud replication, less electricity in data centres. We also chose
-> quarantine over delete — because engineering decisions have **social consequences**
-> and users shouldn't lose data by accident."
-
-Concrete examples:
-- **Direct environmental impact** — reducing redundant storage lowers energy consumption.
-- **Efficient resource use** — size pre-filtering and parallel hashing minimise CPU time
-  and energy per scan.
-- **Social responsibility** — quarantine (never delete) prevents accidental data loss.
-- **Sustainable software** — modular architecture, unit tests, and documentation reduce
-  future maintenance cost.
-
-Full reflection: [`docs/GA_Reflection.md`](docs/GA_Reflection.md)
-
----
-
-## 17. What We Submit
-
-- [ ] Single PDF report (problem, design, implementation, testing, GA2/GA7, team contribution)
-- [ ] Zipped source code named `GroupXX_DuplicateFileFinder.zip`
-- [ ] README with setup + user guide (this file)
-- [ ] System Design Document (5–10 pages)
-- [ ] UML class diagram
-- [ ] Live demo in Week 12 (7–10 minutes)
-
-**Missing the demo or deliverables = 50% deduction.**
-
----
-
-## 18. Risks and Mitigations
-
-| Risk | Likelihood | Impact | Mitigation |
-|---|---|---|---|
-| Member unavailable | Medium | High | Cross-train; every class has a backup owner |
-| Threads cause bugs | Medium | Medium | Ship single-threaded first; add threads in Week 5 |
-| Permission errors crash scan | High | Medium | Try/catch per file; log and continue |
-| Symlinks loop forever | Medium | High | Track visited canonical paths |
-| GUI takes too long | Medium | Medium | CLI must fully work before GUI polish |
-| Merge conflicts | Medium | Medium | Small PRs, frequent pulls, feature branches |
-| Late submission | Low | Severe | Internal deadline = 3 days early |
-| Plagiarism / AI flag | Low | Severe | Original code, cite sources, rewrite in own words |
-
----
-
-## 19. Communication
-
-| | |
-|---|---|
-| **Repo** | https://github.com/LETHABO113/Duplicate-file-finder |
-| **Group chat** | _add link_ |
-| **Weekly meeting** | _add day + time + place_ |
-| **Project Lead** | Ntokozo — _add contact_ |
-| **Docs Lead** | Buhle — _add contact_ |
-
----
-
-## 20. Glossary
-
-| Term | Meaning |
-|---|---|
-| **Duplicate** | Two files with identical content |
-| **Hash / SHA-256** | A short fingerprint of a file's content. Same content = same hash |
-| **Recursion** | A method that calls itself. Used to walk folder trees |
-| **HashMap** | A Java collection for fast key → value lookup |
-| **Generics** | Java feature letting a class work with any type safely, e.g. `DuplicateGroup<T>` |
-| **Multithreading** | Running several tasks at once to save time |
-| **Thread pool** | A managed set of worker threads |
-| **Serialization** | Saving an object to disk and loading it back |
-| **Quarantine** | Safely moving a file aside instead of deleting it |
-| **Big O** | Notation describing how an algorithm's time grows with input size |
-| **CLI** | Command-Line Interface (text menu) |
-| **GUI** | Graphical User Interface (windows, buttons) |
-| **JUnit** | Java testing framework |
-| **Maven** | Java build tool |
-| **PR** | Pull Request — a request to merge your branch |
-| **Repo** | Repository — the project folder tracked by Git |
-
----
-
-## Current Status
-
-| Component | Status |
-|---|---|
-| Repo created | ✅ |
-| README | ✅ |
-| UML diagram | ⏳ |
-| `FileScanner` | ⏳ |
-| `HashCalculator` | ⏳ |
-| `DuplicateDetector` | ⏳ |
-| `CLIMenu` | ⏳ |
-| `MainWindow` | ⏳ |
-| Tests | ⏳ |
-| System Design Document | ⏳ |
-| GA Reflection | ⏳ |
-
-Legend: ✅ done · ⏳ in progress · 🔴 blocked
-
----
-
-## License
-
-Academic project — CPUT Software Design, 2026. Not for commercial use.
-
----
-
-*If anything in this README is unclear, ask Buhle (Documentation Lead). If it's wrong,
-fix it and open a PR.*
-
-**Last updated:** _add date_
+**Last updated:** 28 October 2026
