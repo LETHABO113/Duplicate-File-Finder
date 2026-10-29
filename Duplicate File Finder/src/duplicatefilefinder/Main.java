@@ -74,18 +74,35 @@ public class Main extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Duplicate File Finder");
 
+        mainPanel.setBackground(new java.awt.Color(244, 248, 253));
+
+        lblDirectory.setForeground(new java.awt.Color(23, 43, 77));
         lblDirectory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/directory-icon.png"))); // NOI18N
         lblDirectory.setText("Directory:");
 
+        txtDirectory.setBackground(new java.awt.Color(255, 255, 255));
+        txtDirectory.setForeground(new java.awt.Color(23, 43, 77));
+        txtDirectory.setCaretColor(new java.awt.Color(8, 123, 234));
+        txtDirectory.setSelectedTextColor(new java.awt.Color(23, 43, 77));
+        txtDirectory.setSelectionColor(new java.awt.Color(207, 229, 255));
+
+        btnBrowse.setBackground(new java.awt.Color(231, 238, 247));
+        btnBrowse.setForeground(new java.awt.Color(23, 54, 93));
         btnBrowse.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/browse-icon.png"))); // NOI18N
         btnBrowse.setText("Browse...");
         btnBrowse.addActionListener(this::btnBrowseActionPerformed);
 
-        btnScan.setBackground(new java.awt.Color(51, 204, 255));
+        btnScan.setBackground(new java.awt.Color(8, 123, 234));
+        btnScan.setForeground(new java.awt.Color(255, 255, 255));
         btnScan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/scan-icon.png"))); // NOI18N
         btnScan.setText("Scan");
         btnScan.addActionListener(this::btnScanActionPerformed);
 
+        jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
+
+        tblResults.setBackground(new java.awt.Color(255, 255, 255));
+        tblResults.setForeground(new java.awt.Color(23, 43, 77));
+        tblResults.setGridColor(new java.awt.Color(213, 223, 235));
         tblResults.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null}
@@ -102,20 +119,26 @@ public class Main extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        tblResults.setSelectionBackground(new java.awt.Color(207, 229, 255));
+        tblResults.setSelectionForeground(new java.awt.Color(23, 43, 77));
         tblResults.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane1.setViewportView(tblResults);
 
+        lblResults.setForeground(new java.awt.Color(23, 43, 77));
         lblResults.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/results-icon.png"))); // NOI18N
         lblResults.setText("Results: ");
 
+        lblStatus.setForeground(new java.awt.Color(23, 43, 77));
         lblStatus.setText("Status:");
 
-        btnDeleteSelected.setBackground(new java.awt.Color(255, 51, 51));
+        btnDeleteSelected.setBackground(new java.awt.Color(229, 38, 44));
+        btnDeleteSelected.setForeground(new java.awt.Color(255, 255, 255));
         btnDeleteSelected.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/delete-icon.png"))); // NOI18N
         btnDeleteSelected.setText("Delete Selected");
         btnDeleteSelected.addActionListener(this::btnDeleteSelectedActionPerformed);
 
-        btnQuarantine.setBackground(new java.awt.Color(255, 153, 0));
+        btnQuarantine.setBackground(new java.awt.Color(238, 139, 0));
+        btnQuarantine.setForeground(new java.awt.Color(255, 255, 255));
         btnQuarantine.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/quarantine-icon.png"))); // NOI18N
         btnQuarantine.setText(" Quarantine");
         btnQuarantine.addActionListener(this::btnQuarantineActionPerformed);
@@ -171,26 +194,37 @@ public class Main extends javax.swing.JFrame {
                 .addGap(12, 12, 12))
         );
 
+        jMenuBar1.setBackground(new java.awt.Color(23, 54, 93));
+        jMenuBar1.setForeground(new java.awt.Color(255, 255, 255));
         jMenuBar1.setOpaque(true);
 
+        jMenu1.setBackground(new java.awt.Color(23, 54, 93));
         jMenu1.setForeground(new java.awt.Color(255, 255, 255));
         jMenu1.setText("File");
 
+        menuSelectDirectory.setBackground(new java.awt.Color(255, 255, 255));
+        menuSelectDirectory.setForeground(new java.awt.Color(23, 43, 77));
         menuSelectDirectory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/directory-icon.png"))); // NOI18N
         menuSelectDirectory.setText("Select Directory");
         menuSelectDirectory.addActionListener(this::menuSelectDirectoryActionPerformed);
         jMenu1.add(menuSelectDirectory);
 
+        menuStartScan.setBackground(new java.awt.Color(255, 255, 255));
+        menuStartScan.setForeground(new java.awt.Color(23, 43, 77));
         menuStartScan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/scan-icon.png"))); // NOI18N
         menuStartScan.setText("Start Scan");
         menuStartScan.addActionListener(this::menuStartScanActionPerformed);
         jMenu1.add(menuStartScan);
 
+        menuExportResults.setBackground(new java.awt.Color(255, 255, 255));
+        menuExportResults.setForeground(new java.awt.Color(23, 43, 77));
         menuExportResults.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/export-results-icon.png"))); // NOI18N
         menuExportResults.setText("Export Results");
         menuExportResults.addActionListener(this::menuExportResultsActionPerformed);
         jMenu1.add(menuExportResults);
 
+        menuExit.setBackground(new java.awt.Color(255, 255, 255));
+        menuExit.setForeground(new java.awt.Color(23, 43, 77));
         menuExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/close-icon.png"))); // NOI18N
         menuExit.setText("Exit");
         menuExit.addActionListener(this::menuExitActionPerformed);
@@ -198,9 +232,12 @@ public class Main extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
+        jMenu2.setBackground(new java.awt.Color(23, 54, 93));
         jMenu2.setForeground(new java.awt.Color(255, 255, 255));
         jMenu2.setText("Edit");
 
+        menuSettings.setBackground(new java.awt.Color(255, 255, 255));
+        menuSettings.setForeground(new java.awt.Color(23, 43, 77));
         menuSettings.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/settings-icon.png"))); // NOI18N
         menuSettings.setText("Settings");
         menuSettings.addActionListener(this::menuSettingsActionPerformed);
@@ -208,18 +245,26 @@ public class Main extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
+        jMenu3.setBackground(new java.awt.Color(23, 54, 93));
+        jMenu3.setForeground(new java.awt.Color(255, 255, 255));
         jMenu3.setText("View");
 
+        menuDashboard.setBackground(new java.awt.Color(255, 255, 255));
+        menuDashboard.setForeground(new java.awt.Color(23, 43, 77));
         menuDashboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/dashboard-icon.png"))); // NOI18N
         menuDashboard.setText("Dashboard");
         menuDashboard.addActionListener(this::menuDashboardActionPerformed);
         jMenu3.add(menuDashboard);
 
+        menuResults.setBackground(new java.awt.Color(255, 255, 255));
+        menuResults.setForeground(new java.awt.Color(23, 43, 77));
         menuResults.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/results-icon.png"))); // NOI18N
         menuResults.setText("Results");
         menuResults.addActionListener(this::menuResultsActionPerformed);
         jMenu3.add(menuResults);
 
+        menuQuarantine.setBackground(new java.awt.Color(255, 255, 255));
+        menuQuarantine.setForeground(new java.awt.Color(23, 43, 77));
         menuQuarantine.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/quarantine-icon.png"))); // NOI18N
         menuQuarantine.setText("Quarantine");
         menuQuarantine.addActionListener(this::menuQuarantineActionPerformed);
@@ -227,13 +272,19 @@ public class Main extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu3);
 
+        jMenu4.setBackground(new java.awt.Color(23, 54, 93));
+        jMenu4.setForeground(new java.awt.Color(255, 255, 255));
         jMenu4.setText("Help");
 
+        menuHowToUse.setBackground(new java.awt.Color(255, 255, 255));
+        menuHowToUse.setForeground(new java.awt.Color(23, 43, 77));
         menuHowToUse.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/how-to-use-icon.png"))); // NOI18N
         menuHowToUse.setText("How to Use");
         menuHowToUse.addActionListener(this::menuHowToUseActionPerformed);
         jMenu4.add(menuHowToUse);
 
+        menuAbout.setBackground(new java.awt.Color(255, 255, 255));
+        menuAbout.setForeground(new java.awt.Color(23, 43, 77));
         menuAbout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/about-icon.png"))); // NOI18N
         menuAbout.setText("About");
         menuAbout.addActionListener(this::menuAboutActionPerformed);
