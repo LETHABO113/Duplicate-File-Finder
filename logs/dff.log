@@ -83,3 +83,7 @@
 [2026-10-27 21:40:47] INFO - Found 9204 candidate files
 [2026-10-27 21:40:55] INFO - Scan complete: 1760 duplicate groups in 17215 ms
 [2026-10-27 21:52:15] INFO - AppController initialized
+[2026-10-29 13:55:20] INFO - AppController initialized
+[2026-10-29 13:55:58] INFO - Scanning directory: C:\Users\letha\OneDrive\Desktop\Second year 2026\Software design\Duplicate-File-Finder\Duplicate File Finder\test\duplicatefilefinder
+[2026-10-29 13:55:58] INFO - Found 9 candidate files
+[2026-10-29 13:55:58] INFO - Scan complete: 3 duplicate groups in 148 ms

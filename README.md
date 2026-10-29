@@ -235,15 +235,6 @@ git commit -m "clear summary of the change"
 git push origin develop
 ```
 
-The team **did not use a formal commit-message prefix convention**. Prefixes such as
-`feat:`, `fix:`, or `docs:` are therefore not project requirements. A short, clear
-message describing the actual change is enough.
-
-Because several people use the same branch, each member should pull before starting,
-check `git status` before committing, and coordinate before editing the same file.
-Feature branches can still be used for risky or experimental work, but they are not
-presented here as the workflow followed by every member.
-
 ## Testing approach
 
 ### Current state
