@@ -30,6 +30,7 @@ public class Main extends javax.swing.JFrame {
     
     public Main() {
         initComponents();
+        jMenuBar1.setUI(new javax.swing.plaf.basic.BasicMenuBarUI());
     }
 
     /**
