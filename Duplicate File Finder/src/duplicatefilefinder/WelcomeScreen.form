@@ -38,6 +38,11 @@
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JPanel" name="mainPanel">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="fd" green="f8" red="f4" type="rgb"/>
+        </Property>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -107,7 +112,7 @@
               <Font name="Segoe UI" size="14" style="0"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="c5" green="94" red="0" type="rgb"/>
+              <Color blue="ea" green="7b" red="8" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="       DUPLICATE FILE FINDER "/>
           </Properties>
@@ -118,7 +123,7 @@
               <Font name="SimSun" size="8" style="0"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="c5" green="94" red="0" type="rgb"/>
+              <Color blue="ea" green="7b" red="8" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value=" Find and manage duplicate files "/>
           </Properties>
@@ -128,10 +133,18 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="18" style="0"/>
             </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="4d" green="2b" red="17" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Welcome! Choose your experience"/>
           </Properties>
         </Component>
         <Container class="javax.swing.JPanel" name="guiPanel">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+          </Properties>
 
           <Layout>
             <DimensionLayout dim="0">
@@ -144,15 +157,13 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lblGuiTitle" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="btnLaunchGUI" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblGuiDescription" max="32767" attributes="0"/>
-                                  <Component id="lblGuiTitle" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="lblGuiDescription" max="32767" attributes="0"/>
                               <EmptySpace pref="71" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -185,6 +196,9 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lblGuiTitle">
               <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="4d" green="2b" red="17" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Graphical Interface"/>
               </Properties>
             </Component>
@@ -193,11 +207,20 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="8" style="0"/>
                 </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="4d" green="2b" red="17" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Use buttons, tables and menus"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="btnLaunchGUI">
               <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ea" green="7b" red="8" type="rgb"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Launch GUI"/>
               </Properties>
               <Events>
@@ -207,6 +230,11 @@
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="cliPanel">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+          </Properties>
 
           <Layout>
             <DimensionLayout dim="0">
@@ -260,6 +288,9 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lblCliTitle">
               <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="4d" green="2b" red="17" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Command-Line Interface"/>
               </Properties>
             </Component>
@@ -268,11 +299,20 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="8" style="0"/>
                 </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="4d" green="2b" red="17" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Work using terminal commands "/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="btnLaunchCli">
               <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="f7" green="ee" red="e7" type="rgb"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="5d" green="36" red="17" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Launch CLI"/>
               </Properties>
               <Events>

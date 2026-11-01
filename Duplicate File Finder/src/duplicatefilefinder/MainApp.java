@@ -20,7 +20,11 @@ public class MainApp {
             
             switch (mode){
                 case GUI -> {
-                    SwingUtilities.invokeLater(() -> new Main().setVisible(true));
+                    SwingUtilities.invokeLater(() -> {
+                        WelcomeScreen welcome = new WelcomeScreen();
+                        welcome.setLocationRelativeTo(null);
+                        welcome.setVisible(true);
+                    });
                 }
                 case CLI -> {
                     new CLIMenu(controller).launch();
@@ -37,7 +41,7 @@ public class MainApp {
     
     static Mode parseArguments(String[] args){
         if (args == null ||  args.length == 0){
-            return Mode.CLI;
+            return Mode.GUI;
         }
         for (String arg : args){
             if ("--gui".equalsIgnoreCase(arg)){
@@ -47,6 +51,6 @@ public class MainApp {
                 return Mode.CLI;
             }
         }
-        return Mode.CLI;
+        return Mode.GUI;
     }
 }

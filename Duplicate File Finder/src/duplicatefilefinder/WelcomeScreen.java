@@ -1,13 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package duplicatefilefinder;
 
-/**
- *
- * @author User
- */
 public class WelcomeScreen extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(WelcomeScreen.class.getName());
@@ -17,6 +9,7 @@ public class WelcomeScreen extends javax.swing.JFrame {
      */
     public WelcomeScreen() {
         initComponents();
+        getContentPane().setBackground(new java.awt.Color(244, 248, 253));
     }
 
     /**
@@ -46,26 +39,35 @@ public class WelcomeScreen extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        mainPanel.setBackground(new java.awt.Color(244, 248, 253));
+
         lblAppIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/heading.png"))); // NOI18N
 
         lblTitle.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblTitle.setForeground(new java.awt.Color(0, 148, 197));
+        lblTitle.setForeground(new java.awt.Color(8, 123, 234));
         lblTitle.setText("       DUPLICATE FILE FINDER ");
 
         lblSubtitle.setFont(new java.awt.Font("SimSun", 0, 8)); // NOI18N
-        lblSubtitle.setForeground(new java.awt.Color(0, 148, 197));
+        lblSubtitle.setForeground(new java.awt.Color(8, 123, 234));
         lblSubtitle.setText(" Find and manage duplicate files ");
 
         lblWelcome.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblWelcome.setForeground(new java.awt.Color(23, 43, 77));
         lblWelcome.setText("Welcome! Choose your experience");
+
+        guiPanel.setBackground(new java.awt.Color(255, 255, 255));
 
         lblGuiIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/gui.png"))); // NOI18N
 
+        lblGuiTitle.setForeground(new java.awt.Color(23, 43, 77));
         lblGuiTitle.setText("Graphical Interface");
 
         lblGuiDescription.setFont(new java.awt.Font("Segoe UI", 0, 8)); // NOI18N
+        lblGuiDescription.setForeground(new java.awt.Color(23, 43, 77));
         lblGuiDescription.setText("Use buttons, tables and menus");
 
+        btnLaunchGUI.setBackground(new java.awt.Color(8, 123, 234));
+        btnLaunchGUI.setForeground(new java.awt.Color(255, 255, 255));
         btnLaunchGUI.setText("Launch GUI");
         btnLaunchGUI.addActionListener(this::btnLaunchGUIActionPerformed);
 
@@ -80,13 +82,12 @@ public class WelcomeScreen extends javax.swing.JFrame {
             .addGroup(guiPanelLayout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addGroup(guiPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblGuiTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(guiPanelLayout.createSequentialGroup()
                         .addComponent(btnLaunchGUI, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(guiPanelLayout.createSequentialGroup()
-                        .addGroup(guiPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblGuiDescription, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblGuiTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(lblGuiDescription, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap(71, Short.MAX_VALUE))))
         );
         guiPanelLayout.setVerticalGroup(
@@ -103,13 +104,19 @@ public class WelcomeScreen extends javax.swing.JFrame {
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
+        cliPanel.setBackground(new java.awt.Color(255, 255, 255));
+
         lblCliIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/cli.png"))); // NOI18N
 
+        lblCliTitle.setForeground(new java.awt.Color(23, 43, 77));
         lblCliTitle.setText("Command-Line Interface");
 
         lblCliDescription.setFont(new java.awt.Font("Segoe UI", 0, 8)); // NOI18N
+        lblCliDescription.setForeground(new java.awt.Color(23, 43, 77));
         lblCliDescription.setText("Work using terminal commands ");
 
+        btnLaunchCli.setBackground(new java.awt.Color(231, 238, 247));
+        btnLaunchCli.setForeground(new java.awt.Color(23, 54, 93));
         btnLaunchCli.setText("Launch CLI");
         btnLaunchCli.addActionListener(this::btnLaunchCliActionPerformed);
 

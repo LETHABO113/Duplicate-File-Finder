@@ -16,6 +16,7 @@ public class QuarantineWindow extends javax.swing.JFrame {
    
     public QuarantineWindow() {
         initComponents();
+        getContentPane().setBackground(new java.awt.Color(244, 248, 253));
     }
 
    
@@ -35,9 +36,19 @@ public class QuarantineWindow extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        mainPanel.setBackground(new java.awt.Color(244, 248, 253));
+
+        lblTitle.setForeground(new java.awt.Color(23, 43, 77));
         lblTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/q-files-icon.png"))); // NOI18N
         lblTitle.setText("Quarantined Files");
 
+        jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
+
+        jScrollPane2.setBackground(new java.awt.Color(255, 255, 255));
+
+        tblQuarantined.setBackground(new java.awt.Color(255, 255, 255));
+        tblQuarantined.setForeground(new java.awt.Color(23, 43, 77));
+        tblQuarantined.setGridColor(new java.awt.Color(213, 223, 235));
         tblQuarantined.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -57,18 +68,28 @@ public class QuarantineWindow extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        tblQuarantined.setSelectionBackground(new java.awt.Color(207, 229, 255));
+        tblQuarantined.setSelectionForeground(new java.awt.Color(23, 43, 77));
         jScrollPane2.setViewportView(tblQuarantined);
 
         jScrollPane1.setViewportView(jScrollPane2);
 
+        buttonPanel.setBackground(new java.awt.Color(244, 248, 253));
+
+        btnRestore.setBackground(new java.awt.Color(8, 123, 234));
+        btnRestore.setForeground(new java.awt.Color(255, 255, 255));
         btnRestore.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/restore-selected-icon.png"))); // NOI18N
         btnRestore.setText("Restore Selected");
         btnRestore.addActionListener(this::btnRestoreActionPerformed);
 
+        btnClose.setBackground(new java.awt.Color(231, 238, 247));
+        btnClose.setForeground(new java.awt.Color(23, 54, 93));
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/close-icon.png"))); // NOI18N
         btnClose.setText("Close");
         btnClose.addActionListener(this::btnCloseActionPerformed);
 
+        btnRefresh.setBackground(new java.awt.Color(231, 238, 247));
+        btnRefresh.setForeground(new java.awt.Color(23, 54, 93));
         btnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duplicatefilefinder/resources/refresh-icon.png"))); // NOI18N
         btnRefresh.setText("Refresh");
         btnRefresh.addActionListener(this::btnRefreshActionPerformed);

@@ -90,3 +90,24 @@
 [2026-10-29 14:22:48] INFO - AppController initialized
 [2026-10-29 14:23:07] INFO - AppController initialized
 [2026-10-29 14:28:08] INFO - AppController initialized
+[2026-10-29 14:46:54] INFO - AppController initialized
+[2026-10-29 14:47:26] INFO - Scanning directory: C:\Users\letha\OneDrive\Documents
+[2026-10-29 14:47:30] INFO - Found 9204 candidate files
+[2026-10-29 14:47:32] INFO - Scan complete: 1760 duplicate groups in 6492 ms
+[2026-10-29 21:03:26] INFO - AppController initialized
+[2026-10-29 21:03:44] INFO - Scanning directory: C:\Users\letha\OneDrive\Documents
+[2026-10-29 21:03:48] INFO - Found 9204 candidate files
+[2026-10-29 21:03:51] INFO - Scan complete: 1760 duplicate groups in 6727 ms
+[2026-10-29 21:04:10] INFO - Quarantining 1 file(s)
+[2026-10-29 21:04:11] INFO - Quarantined file: C:\Users\letha\OneDrive\Documents\SCHOOL 2024\School\mtg-chemistry-gr-12-web.pdf
+[2026-10-29 21:04:11] INFO - Quarantine completed: 1 file(s) moved
+[2026-10-29 21:04:19] INFO - AppController initialized
+[2026-10-29 21:04:40] INFO - Restoring 1 file(s)
+[2026-10-29 21:04:40] INFO - Restored file: C:\Users\letha\OneDrive\Documents\SCHOOL 2024\School\mtg-chemistry-gr-12-web.pdf
+[2026-10-29 21:04:40] INFO - Restore complete: 1 file(s) restored
+[2026-11-01 13:40:35] INFO - AppController initialized
+[2026-11-01 13:40:40] INFO - AppController initialized
+[2026-11-01 13:47:37] INFO - AppController initialized
+[2026-11-01 13:50:52] INFO - AppController initialized
+[2026-11-01 13:50:59] INFO - Starting duplicate file finde in CLImode
+[2026-11-01 13:50:59] INFO - AppController initialized
