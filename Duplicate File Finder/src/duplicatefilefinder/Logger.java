@@ -1,3 +1,4 @@
+package duplicatefilefinder;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -7,11 +8,13 @@ import java.time.format.DateTimeFormatter;
 
 public final class Logger {
     private static final Logger INSTANCE = new Logger();
-    private static final DateTimeFormatter FORMART = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+  
+    private static final DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private final Path logFile;
     
     private Logger(){
-        this.logFile = Path.of("logs", "diff.log");
+        
+        this.logFile = Path.of("logs", "dff.log");
         try{
             Files.createDirectories(logFile.getParent());
         }catch(IOException e){
@@ -36,7 +39,7 @@ public final class Logger {
     }
     
     private synchronized void write(String level, String message){
-        String line = "[" + LocalDateTime.now().format(FORMART) + "]" + level + " - " + message;
+        String line = "[" + LocalDateTime.now().format(FORMAT) + "] " + level + " - " + message;
         System.out.println(line);
         
         try{
