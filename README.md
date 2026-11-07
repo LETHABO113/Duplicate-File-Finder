@@ -350,7 +350,7 @@ are excluded by `.gitignore`.
 | Name | Student number | Primary role | Related responsibility |
 |---|---:|---|---|
 | **Lethabo** | 251511588 | Project Lead / Integrator | `MainApp`, `AppController` |
-| **Mahlogono** | 251565998 | File Scanner Developer | `FileScanner` |
+| **Mahlogonolo** | 251565998 | File Scanner Developer | `FileScanner` |
 | **Ntokozo** | 250070480 | Hashing and Quarantine Developer | `HashCalculator`, `QuarantineManager` |
 | **Thapelo** | 231248822 | Duplicate Detection Developer | `DuplicateDetector`, `DuplicateGroup` |
 | **Nkazimulo** | 250448890 | CLI Developer | `CLIMenu`, `ReportGenerator` |
