@@ -269,3 +269,13 @@
 [2026-11-05 19:39:33] INFO - AppController initialized
 [2026-11-05 19:39:33] INFO - AppController initialized
 [2026-11-05 19:39:33] INFO - AppController initialized
+[2026-11-07 13:27:54] INFO - AppController initialized
+[2026-11-07 13:27:54] INFO - Exporting 1 group(s) as CSV
+[2026-11-07 13:27:54] INFO - Export complete: C:\Users\letha\AppData\Local\Temp\junit8919904327812061101\export.csv
+[2026-11-07 13:27:54] INFO - AppController initialized
+[2026-11-07 13:27:54] INFO - Scanning directory: C:\Users\letha\AppData\Local\Temp\junit14665956830811334807\scan_target
+[2026-11-07 13:27:54] INFO - Found 3 candidate files
+[2026-11-07 13:27:54] INFO - Scan complete: 1 duplicate groups in 22 ms
+[2026-11-07 13:27:54] INFO - AppController initialized
+[2026-11-07 13:27:54] INFO - AppController initialized
+[2026-11-07 13:27:54] INFO - AppController initialized
