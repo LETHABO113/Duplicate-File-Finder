@@ -22,7 +22,6 @@ Duplicate File Finder is a Java desktop application that scans a directory and f
 
 - [Check-in status](#check-in-status)
 - [Quick start](#quick-start)
-- [Check-in demonstration](#check-in-demonstration)
 - [User guide](#user-guide)
 - [How duplicate detection works](#how-duplicate-detection-works)
 - [Testing](#testing)
@@ -52,7 +51,6 @@ Duplicate File Finder is a Java desktop application that scans a directory and f
 | JUnit 4 automated test suite | Implemented and passed |
 | Manual GUI testing | Completed |
 | Data safety validation | Tested |
-| NetBeans Ant build | Configured |
 
 ## Quick start
 
@@ -98,38 +96,6 @@ java -cp ".\dist\Duplicate_File_Finder.jar" duplicatefilefinder.MainApp --cli
 ```
 
 NetBeans includes Ant support, so a separate command-line Ant installation is not required when building inside the IDE.
-
-## Check-in demonstration
-
-The committed binary files in `Duplicate File Finder/test/duplicatefilefinder` provide a stable demonstration set.
-
-For scan-only demonstrations, the tracked folder can be used directly. Before demonstrating quarantine or deletion, copy the entire folder to a disposable location and scan the copy.
-
-### Expected result
-
-Scanning the nine fixture files should produce **3 duplicate groups** and **7 rows** in the GUI results table.
-
-| Duplicate group | Matching files |
-|---|---|
-| Images | `ImageTest.jpg`, `ImageTest1.jpg` |
-| Documents | `TestDocument.docx`, `TestDocument1.docx` |
-| Images | `TestImage - Copy.jpg`, `TestImage.jpg`, `TestImage1.jpg` |
-
-`Test.docx` and `testmage.jpg` are unique and should not appear in the duplicate results.
-
-The three groups represent **333,824 bytes** of estimated wasted space.
-
-### Suggested 3-minute demo
-
-1. Run the project and choose **Launch GUI**.
-2. Click **Browse** and select a disposable copy of `test/duplicatefilefinder`.
-3. Click **Scan** and confirm that three groups and seven duplicate rows appear.
-4. Open **File > Export Results**, choose CSV or JSON, and save the report.
-5. Tick one file in a duplicate group and click **Quarantine**.
-6. Open **View > Quarantine**, click **Refresh**, tick the quarantined file, and click **Restore Selected**.
-7. Use the quarantine window's **Close** button, then scan again to confirm that the three original groups return.
-
-Export before moving or deleting files. After a file action, scan again before using the results for another action or report.
 
 ## User guide
 
