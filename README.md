@@ -390,7 +390,7 @@ NetBeans generates `build/`, `dist/`, and `nbproject/private/` locally. These pa
 | **Mahlogonolo Mkhawane** | 251565998 | File Scanner Developer | `FileScanner` |
 | **Ntokozo Tyanase** | 250070480 | Hashing and Quarantine Developer | `HashCalculator`, `QuarantineManager` |
 | **Thapelo Vundla** | 231248822 | Duplicate Detection Developer | `DuplicateDetector`, `DuplicateGroup` |
-| **Nkazimulo Geraldine Patuence Dhlamini** | 250448890 | CLI Developer | `CLIMenu`, `ReportGenerator` |
+| **Nkazimulo Geraldine Patience Dhlamini** | 250448890 | CLI Developer | `CLIMenu`, `ReportGenerator` |
 | **Kungawo Sonke Mpengesi** | 250078732 | GUI Developer | Swing interface and CLI support |
 | **Amogelang Tshutse** | 250336405 | Testing and QA Lead | `Logger`, `AppSettings`, test coordination |
 | **Nobuhle Angel Mamba** | 251224239 | Documentation and UML Lead | Documentation and UML |
