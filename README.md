@@ -1,8 +1,8 @@
+# Duplicate File Finder
+
 <p align="center">
   <img src="Duplicate%20File%20Finder/src/duplicatefilefinder/resources/heading.png" alt="Duplicate File Finder logo" width="96">
 </p>
-
-# Duplicate File Finder
 
 **Software Design 2 | CPUT | 2026**
 
@@ -10,28 +10,25 @@
 [![ant](https://img.shields.io/badge/Build-ant-blue)]()
 [![Status](https://img.shields.io/badge/Status-In%20Development-yellow)]()
 
-Repository: https://github.com/LETHABO113/Duplicate-file-finder
+**Repository:** https://github.com/LETHABO113/Duplicate-file-finder
 
-Duplicate File Finder is a Java desktop application that scans a directory and finds
-files with identical content, even when their names or locations are different. It
-provides a Swing graphical interface and a command-line interface, then lets the user
-review, export, quarantine, restore, or safely remove duplicate copies.
+Duplicate File Finder is a Java desktop application that scans a directory and finds files with identical content, even when their names or locations are different. It provides a Swing graphical interface and a command-line interface, then lets the user review, export, quarantine, restore, or safely remove duplicate copies.
 
-> **Safety warning:** only demonstrate quarantine or permanent deletion on disposable
-> copies. Never test these actions on the only copy of important files.
+> **Safety warning:** Only demonstrate quarantine or permanent deletion on disposable copies. Never test these actions on the only copy of important files.
 
 ## Contents
 
 - [Check-in status](#check-in-status)
 - [Quick start](#quick-start)
-- [Check-in demonstration](#check-in-demonstration)
 - [User guide](#user-guide)
 - [How duplicate detection works](#how-duplicate-detection-works)
 - [Testing](#testing)
 - [Architecture and project structure](#architecture-and-project-structure)
 - [Team responsibilities](#team-responsibilities)
 - [Git workflow](#git-workflow)
+- [Runtime files and settings](#runtime-files-and-settings)
 - [Known limitations](#known-limitations)
+- [Academic use](#academic-use)
 
 ## Check-in status
 
@@ -49,33 +46,30 @@ review, export, quarantine, restore, or safely remove duplicate copies.
 | Activity and quarantine logging | Implemented |
 | UML class diagram | Added as a draw.io file |
 | Manual test data | Added and verified |
-| Automated Java tests | Not yet implemented |
+| JUnit 4 automated test suite | Implemented and passed |
+| Manual GUI testing | Completed |
+| Data safety validation | Tested |
 
 ## Quick start
 
 ### Requirements
 
-- Windows 10 or 11 for the complete current GUI/CLI launch experience
-- Apache NetBeans with Java SE and Ant support
-- JDK 25, matching the project's current source and target settings
-- Git, if the repository will be cloned or updated
-
-This is a **NetBeans Java Ant project**, not a Maven project. It has no external
-runtime dependencies and does not use a `pom.xml` or `mvn` commands.
+- Windows 10 or 11 for the complete current GUI/CLI launch experience.
+- Apache NetBeans with Java SE and Ant support.
+- JDK 25, matching the project's current source and target settings.
+- Git, if the repository will be cloned or updated.
 
 ### Build and run with NetBeans
 
 1. Clone or download the repository.
 2. Open Apache NetBeans.
 3. Select **File > Open Project**.
-4. Open the inner `Duplicate File Finder` folder containing `build.xml` and
-   `nbproject`.
+4. Open the inner `Duplicate File Finder` folder containing `build.xml` and `nbproject`.
 5. Right-click the project and choose **Clean and Build**.
 6. Click **Run Project**.
 7. On the welcome screen, choose **Launch GUI** or **Launch CLI**.
 
-No NetBeans run arguments are needed for normal use. The configured entry point is
-`duplicatefilefinder.WelcomeScreen`.
+No NetBeans run arguments are needed for normal use. The configured entry point is `duplicatefilefinder.WelcomeScreen`.
 
 The built JAR is created at:
 
@@ -99,45 +93,7 @@ The JAR opens the welcome screen. To start the CLI directly after building:
 java -cp ".\dist\Duplicate_File_Finder.jar" duplicatefilefinder.MainApp --cli
 ```
 
-NetBeans includes Ant support, so a separate command-line Ant installation is not
-required when building inside the IDE.
-
-## Check-in demonstration
-
-The committed binary files in `Duplicate File Finder/test/duplicatefilefinder` provide
-a stable demonstration set. For scan-only demonstrations, the tracked folder can be
-used directly. Before demonstrating quarantine or deletion, copy the entire folder to
-a disposable location and scan the copy.
-
-### Expected result
-
-Scanning the nine fixture files should produce **3 duplicate groups** and **7 rows**
-in the GUI results table:
-
-| Duplicate group | Matching files |
-|---|---|
-| Images | `ImageTest.jpg`, `ImageTest1.jpg` |
-| Documents | `TestDocument.docx`, `TestDocument1.docx` |
-| Images | `TestImage - Copy.jpg`, `TestImage.jpg`, `TestImage1.jpg` |
-
-`Test.docx` and `testmage.jpg` are unique and should not appear in the duplicate
-results. The three groups represent **333,824 bytes** of estimated wasted space.
-
-### Suggested 3-minute demo
-
-1. Run the project and choose **Launch GUI**.
-2. Click **Browse** and select a disposable copy of
-   `test/duplicatefilefinder`.
-3. Click **Scan** and confirm that three groups and seven duplicate rows appear.
-4. Open **File > Export Results**, choose CSV or JSON, and save the report.
-5. Tick one file in a duplicate group and click **Quarantine**.
-6. Open **View > Quarantine**, click **Refresh**, tick the quarantined file, and
-   click **Restore Selected**.
-7. Use the quarantine window's **Close** button, then scan again to confirm that the
-   three original groups return.
-
-Export before moving or deleting files. After a file action, scan again before using
-the results for another action or report.
+NetBeans includes Ant support, so a separate command-line Ant installation is not required when building inside the IDE.
 
 ## User guide
 
@@ -157,8 +113,7 @@ Running the project first opens a welcome screen with two choices:
 3. Click **Scan**, or select **File > Start Scan**.
 4. Wait for the status line to report how many duplicate groups were found.
 
-Large scans may take time. Do not close the program while it is reading and hashing
-files.
+Large scans may take time. Do not close the program while it is reading and hashing files.
 
 #### 2. Read the results
 
@@ -172,8 +127,7 @@ Only confirmed duplicate files are shown. The results table contains:
 | Size (KB) | File size in kilobytes |
 | Duplicate Group | Files with the same number contain matching content |
 
-Tick the checkbox in the **Select** column. Highlighting a row does not select the
-file for quarantine or deletion.
+Tick the checkbox in the **Select** column. Highlighting a row does not select the file for quarantine or deletion.
 
 #### 3. Export results
 
@@ -182,8 +136,7 @@ file for quarantine or deletion.
 3. Choose **CSV** or **JSON**.
 4. Choose the output filename and location.
 
-Export the current scan before quarantining or deleting files. Otherwise, rescan
-before exporting.
+Export the current scan before quarantining or deleting files. Otherwise, rescan before exporting.
 
 #### 4. Quarantine duplicate copies
 
@@ -191,9 +144,7 @@ before exporting.
 2. Keep at least one file unchecked in every duplicate group.
 3. Click **Quarantine** and confirm the action.
 
-The application prevents the user from quarantining every copy in a group. Files are
-moved into the configured quarantine folder and recorded in `quarantine/audit.log` so
-they can be restored.
+The application prevents the user from quarantining every copy in a group. Files are moved into the configured quarantine folder and recorded in `quarantine/audit.log` so they can be restored.
 
 #### 5. Restore quarantined files
 
@@ -214,7 +165,7 @@ Restoration cannot overwrite another file already present at the original path.
 
 Permanent deletion cannot be undone. The CLI does not provide this option.
 
-#### Menu reference
+### Menu reference
 
 | Menu | Available actions |
 |---|---|
@@ -240,8 +191,7 @@ The CLI is an interactive numbered menu:
 - Enter the directory path when prompted.
 - Results show group count, wasted bytes, SHA-256 hashes, and full paths.
 - CSV and JSON exports require a complete output path.
-- File choices for quarantine and restore are entered as comma-separated numbers,
-  for example `1, 3`.
+- File choices for quarantine and restore are entered as comma-separated numbers, for example `1, 3`.
 - At least one copy in every duplicate group must remain outside quarantine.
 - Scan again after quarantining or restoring files.
 - Option 6 displays and saves the current settings; it does not edit them.
@@ -251,46 +201,123 @@ The CLI is an interactive numbered menu:
 The application compares content rather than file names:
 
 1. `FileScanner` recursively collects files from the selected directory.
-2. Files smaller than the configured minimum or outside the extension filter are
-   excluded.
+2. Files smaller than the configured minimum or outside the extension filter are excluded.
 3. `DuplicateDetector` groups the remaining files by byte size.
-4. Files with a unique size are skipped because they cannot have an exact copy in the
-   scanned set.
-5. `HashCalculator` calculates SHA-256 hashes for the remaining candidates in
-   parallel.
-6. Files with matching content hashes are placed into `DuplicateGroup` objects and
-   sorted by estimated wasted space.
+4. Files with a unique size are skipped because they cannot have an exact copy in the scanned set.
+5. `HashCalculator` calculates SHA-256 hashes for the remaining candidates in parallel.
+6. Files with matching content hashes are placed into `DuplicateGroup` objects and sorted by estimated wasted space.
 
-Symlinks are skipped by default. Unreadable nested folders are logged and skipped so
-the rest of the scan can continue.
+Symlinks are skipped by default. Unreadable nested folders are logged and skipped so the rest of the scan can continue.
 
 ## Testing
 
-### Current approach
+The Duplicate File Finder underwent two phases of testing to verify application functionality and data safety:
 
-The `test/duplicatefilefinder` directory contains nine committed JPG and DOCX fixtures
-for repeatable manual testing. It does not contain Java unit-test classes, and the
-project does not currently claim an implemented JUnit suite.
+1. **Automated testing:** JUnit 4 tests validate the core application components, including directory scanning, duplicate detection, hashing, settings, reporting, quarantine, and application control.
+2. **Manual testing:** GUI tests using dummy files verify the application's real-world behaviour, including scanning, exporting, quarantine, restoration, permanent deletion, and the safety rule that prevents all copies in a duplicate group from being removed.
 
-The current manual process is:
+Combining automated logic tests with manual interface and file-operation tests provides coverage of both internal functionality and user-facing behaviour.
 
-1. Clean and build the project.
-2. Copy the fixture folder before any file-changing test.
-3. Record the test case, expected result, actual result, pass/fail status, tester, and
-   date.
-4. Recreate the disposable folder before repeating quarantine or deletion tests.
+### 1. Automated testing (JUnit 4)
 
-| Core test | Expected result |
+The project includes a JUnit 4 automated test suite.
+
+The automated tests cover the following classes:
+
+| Test class | What it tests | Verified behaviour |
+|---|---|---|
+| `FileScannerTest` | Directory scanning | Handles empty folders, deeply nested directories, and invalid or unreadable paths. |
+| `DuplicateDetectorTest` | Duplicate detection and SHA-256 comparison | Groups identical files, ignores unique files, and handles zero-byte files. |
+| `AppSettingsTest` | Application configuration | Rejects invalid settings such as negative file sizes and zero thread counts. |
+| `ReportGeneratorTest` | Report generation | Tests CSV and JSON output, including handling null inputs safely. |
+| `QuarantineManagerTest` | File movement and restoration | Verifies file movement, audit logging, restoration to original paths, and rejection of missing or null file lists. |
+| `AppControllerTest` | Integration testing | Checks coordination between components and handling of invalid directory paths and export formats. |
+
+#### Important automated test scenarios
+
+- Recursive directory scanning.
+- Empty and deeply nested directories.
+- Invalid and unreadable directory paths.
+- Identical files with different names.
+- Unique files that must not be identified as duplicates.
+- Zero-byte file handling.
+- Invalid application settings.
+- CSV and JSON report generation.
+- Null input handling.
+- Quarantine and restoration of files.
+- Audit logging of file movements.
+- Invalid export formats and directory paths.
+
+#### Running automated tests in NetBeans
+
+To execute the complete automated test suite:
+
+1. Open the project in Apache NetBeans.
+2. Right-click the project in the Projects window.
+3. Select **Test**.
+4. Wait for the automated test execution to finish.
+5. Review the test results window.
+
+To run an individual test class:
+
+1. Locate the required test class.
+2. Right-click the test file.
+3. Select **Test File**.
+4. Review the results for that particular class.
+
+The automated test suite compiled successfully and passed at 100% during the documented testing process.
+
+**Note on NetBeans IDE parsing:** During development, NetBeans intermittently displayed visual parsing errors on `AppControllerTest.java` and `AppSettingsTest.java`. However, the Ant build system successfully compiled the test classes, and the automated test suite passed. The issue was identified as a local IDE parsing/cache problem rather than a compilation or application failure.
+
+### 2. Manual testing
+
+Manual testing was performed using dummy files in the `test/duplicatefilefinder` directory.
+
+The objective was to verify the application's behaviour through its graphical interface and confirm that file operations work correctly.
+
+#### Manual test cases and results
+
+| Test case | Expected result |
 |---|---|
-| Scan committed fixture set | 3 groups and 7 duplicate rows |
-| Folder containing unique files only | No duplicate groups |
-| Same-size files with different content | Files are not grouped together |
-| Identical content with different names | Files are grouped together |
-| Duplicates in nested folders | Files are found recursively |
-| CSV and JSON export | Report contains all current duplicate paths |
-| Quarantine and restore | Copy is moved, audited, and restored unchanged |
-| Attempt to select every copy | Action is blocked |
-| Invalid or unreadable directory | Clear error or warning without data loss |
+| Scan the test directory | Duplicate files are identified correctly. |
+| Display scan results | Duplicate groups and matching file paths appear in the GUI. |
+| Export CSV results | A CSV report is generated successfully. |
+| Export JSON results | A JSON report is generated successfully. |
+| Quarantine a duplicate file | The selected file is moved into quarantine. |
+| Refresh quarantine window | Quarantined files appear in the window. |
+| Restore a quarantined file | The file returns to its original directory. |
+| Run a new scan after restoration | The restored file is detected again as a duplicate. |
+| Attempt to quarantine every copy in a group | The application blocks the operation. |
+| Permanently delete a selected duplicate | The selected file is permanently removed after confirmation. |
+
+#### Data safety validation
+
+A particularly important manual test verified the application's **Keep One Copy** rule.
+
+The application does not allow the user to quarantine every file in a duplicate group. At least one copy must remain in the original directory.
+
+The test confirmed that the application blocks an operation that would otherwise remove every copy of a duplicate file.
+
+Quarantine and restoration were also tested to verify that:
+
+- Selected files are moved successfully.
+- Quarantine movements are recorded.
+- Files can be restored to their original locations.
+- A new scan recognises the restored duplicate files.
+
+Permanent deletion was tested separately without using quarantine.
+
+**Testing evidence:** The `All Tests.docx` testing document contains screenshots and supporting evidence of the automated test execution, CSV/JSON exports, quarantine, restoration, safety-limit validation, and permanent deletion.
+
+### 3. Testing conclusion
+
+The automated and manual testing phases verified the core functionality and file safety mechanisms of the Duplicate File Finder.
+
+JUnit 4 tests validated the internal logic and handling of invalid inputs, while manual GUI testing confirmed that the user-facing features operate as intended.
+
+Particular attention was given to the Keep One Copy rule, quarantine restoration, and permanent deletion to reduce the risk of accidental data loss.
+
+## Architecture and project structure
 
 ### Important classes
 
@@ -320,7 +347,7 @@ Duplicate-File-Finder/
     |-- build.xml
     |-- manifest.mf
     |-- Duplicate-File-Finder-Class-Diagram.drawio
-    |-- nbproject/                       # NetBeans Ant configuration
+    |-- nbproject/                  # NetBeans Ant configuration
     |-- src/duplicatefilefinder/
     |   |-- WelcomeScreen.java/.form
     |   |-- Main.java/.form
@@ -333,30 +360,30 @@ Duplicate-File-Finder/
     |   |-- HashCalculator.java
     |   |-- QuarantineManager.java
     |   |-- ReportGenerator.java
-    |   `-- resources/                   # Icons and welcome-screen images
-    |-- test/duplicatefilefinder/        # Manual JPG and DOCX fixtures
-    |-- sample-data/                     # Small text fixtures
-    |-- config/                          # Serialized settings
-    |-- logs/                            # Activity log
-    |-- quarantine/                      # Quarantined files and audit log
-    `-- DFF-Video-Demo/                  # Additional demonstration files
+    |   `-- resources/               # Icons and welcome-screen images
+    |-- test/duplicatefilefinder/   # Manual JPG/DOCX fixtures
+    |                                # JUnit automated test classes
+    |-- sample-data/                # Small text fixtures
+    |-- config/                     # Serialized settings
+    |-- logs/                       # Activity log
+    |-- quarantine/                 # Quarantined files and audit log
+    `-- DFF-Video-Demo/             # Additional demonstration files
 ```
 
-NetBeans generates `build/`, `dist/`, and `nbproject/private/` locally. These paths
-are excluded by `.gitignore`.
+NetBeans generates `build/`, `dist/`, and `nbproject/private/` locally. These paths are excluded by `.gitignore`.
 
 ## Team responsibilities
 
 | Name | Student number | Primary role | Related responsibility |
 |---|---:|---|---|
-| **Lethabo** | 251511588 | Project Lead / Integrator | `MainApp`, `AppController` |
-| **Mahlogono** | 251565998 | File Scanner Developer | `FileScanner` |
-| **Ntokozo** | 250070480 | Hashing and Quarantine Developer | `HashCalculator`, `QuarantineManager` |
-| **Thapelo** | 231248822 | Duplicate Detection Developer | `DuplicateDetector`, `DuplicateGroup` |
-| **Nkazimulo** | 250448890 | CLI Developer | `CLIMenu`, `ReportGenerator` |
-| **Kungawo** | 250078732 | GUI Developer | Swing interface and CLI support |
-| **Amogelang** | 250336405 | Testing and QA Lead | `Logger`, `AppSettings`, test coordination |
-| **Buhle** | 251224239 | Documentation and UML Lead | `FileUtility`, `HashUtil`, documentation |
+| **Lethabo Ramatlhape** | 251511588 | Project Lead / Integrator | `MainApp`, `AppController` |
+| **Mahlogonolo Mkhawane** | 251565998 | File Scanner Developer | `FileScanner` |
+| **Ntokozo Tyanase** | 250070480 | Hashing and Quarantine Developer | `HashCalculator`, `QuarantineManager` |
+| **Thapelo Vundla** | 231248822 | Duplicate Detection Developer | `DuplicateDetector`, `DuplicateGroup` |
+| **Nkazimulo Geraldine Patuence Dhlamini** | 250448890 | CLI Developer | `CLIMenu`, `ReportGenerator` |
+| **Kungawo Sonke Mpengesi** | 250078732 | GUI Developer | Swing interface and CLI support |
+| **Amogelang Tshutse** | 250336405 | Testing and QA Lead | `Logger`, `AppSettings`, test coordination |
+| **Nobuhle Angel Mamba** | 251224239 | Documentation and UML Lead | `FileUtility`, `HashUtil`, documentation |
 
 ## Git workflow
 
@@ -517,33 +544,26 @@ git push origin develop
 
 ## Runtime files and settings
 
-Runtime paths are relative to the directory from which the application is started.
-For consistent behavior, run the project from the inner `Duplicate File Finder`
-project folder.
+Runtime paths are relative to the directory from which the application is started. For consistent behaviour, run the project from the inner `Duplicate File Finder` project folder.
 
 - `config/settings.ser` stores serialized application settings.
 - `logs/dff.log` stores activity and error messages.
 - `quarantine/` stores quarantined files.
 - `quarantine/audit.log` records original paths for restoration.
 
-If saved settings cause problems on another computer, close the application and
-remove the local `config/settings.ser` file. The application uses default settings
-when that file is absent.
+If saved settings cause problems on another computer, close the application and remove the local `config/settings.ser` file. The application uses default settings when that file is absent.
 
 ## Known limitations
 
-- The welcome screen's **Launch CLI** button is Windows-specific because it uses
-  `cmd.exe` and `java.exe`.
-- Large GUI scans run synchronously and may make the window appear unresponsive until
-  scanning finishes.
+- The welcome screen's **Launch CLI** button is Windows-specific because it uses `cmd.exe` and `java.exe`.
+- Large GUI scans run synchronously and may make the window appear unresponsive until scanning finishes.
 - The Settings screens display current values but do not edit them.
 - The quarantine window requires **Refresh** before files appear.
-- Use the quarantine window's **Close** button; its title-bar **X** currently exits the
-  application.
-- Export before a file action or rescan afterward so the report reflects the current
-  filesystem.
-- The default minimum file size is one byte, so zero-byte files are excluded.
-- Automated Java tests have not yet been implemented.
+- Use the quarantine window's **Close** button; its title-bar **X** currently exits the application.
+- Export before a file action or rescan afterward so the report reflects the current filesystem.
+- The default minimum file size is one byte, so zero-byte files are excluded by default during normal scanning.
+- Permanent deletion is available only through the GUI.
+- The CLI does not provide permanent deletion.
 
 ## Academic use
 

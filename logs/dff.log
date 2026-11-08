@@ -113,3 +113,29 @@
 [2026-11-01 13:50:59] INFO - AppController initialized
 [2026-11-01 16:44:34] INFO - AppController initialized
 [2026-11-01 16:44:41] INFO - AppController initialized
+[2026-11-07 11:12:24] INFO - AppController initialized
+[2026-11-07 11:12:36] INFO - Scanning directory: C:\Users\letha\OneDrive\Documents\Downloads
+[2026-11-07 11:12:36] INFO - Found 2 candidate files
+[2026-11-07 11:12:36] INFO - Scan complete: 0 duplicate groups in 13 ms
+[2026-11-07 11:12:51] INFO - Scanning directory: C:\Users\letha\OneDrive\Documents\Downloads
+[2026-11-07 11:12:51] INFO - Found 2 candidate files
+[2026-11-07 11:12:51] INFO - Scan complete: 0 duplicate groups in 6 ms
+[2026-11-07 11:12:53] INFO - Scanning directory: C:\Users\letha\OneDrive\Documents\Downloads
+[2026-11-07 11:12:53] INFO - Found 2 candidate files
+[2026-11-07 11:12:53] INFO - Scan complete: 0 duplicate groups in 5 ms
+[2026-11-07 11:12:54] INFO - Scanning directory: C:\Users\letha\OneDrive\Documents\Downloads
+[2026-11-07 11:12:54] INFO - Found 2 candidate files
+[2026-11-07 11:12:54] INFO - Scan complete: 0 duplicate groups in 6 ms
+[2026-11-07 11:12:54] INFO - Scanning directory: C:\Users\letha\OneDrive\Documents\Downloads
+[2026-11-07 11:12:54] INFO - Found 2 candidate files
+[2026-11-07 11:12:54] INFO - Scan complete: 0 duplicate groups in 7 ms
+[2026-11-07 11:13:13] INFO - Scanning directory: C:\Users\letha\Downloads
+[2026-11-07 11:13:16] INFO - Found 5488 candidate files
+[2026-11-07 11:13:17] INFO - Scan complete: 88 duplicate groups in 4672 ms
+[2026-11-07 11:13:29] INFO - Quarantining 1 file(s)
+[2026-11-07 11:13:29] INFO - Quarantined file: C:\Users\letha\Downloads\Pablo\01April (1).zip
+[2026-11-07 11:13:29] INFO - Quarantine completed: 1 file(s) moved
+[2026-11-07 11:14:20] INFO - AppController initialized
+[2026-11-07 11:14:29] INFO - Restoring 1 file(s)
+[2026-11-07 11:14:29] INFO - Restored file: C:\Users\letha\Downloads\Pablo\01April (1).zip
+[2026-11-07 11:14:29] INFO - Restore complete: 1 file(s) restored

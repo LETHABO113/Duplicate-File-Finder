@@ -142,3 +142,140 @@
 [2026-10-29 20:51:39] INFO - AppController initialized
 [2026-11-01 13:51:38] INFO - Starting duplicate file finde in CLImode
 [2026-11-01 13:51:38] INFO - AppController initialized
+[2026-11-05 17:50:25] INFO - Quarantined file: C:\Users\pc\AppData\Local\Temp\junit7997838331333400985\source\delete_test.txt
+[2026-11-05 17:50:25] INFO - Permanently deleted quarantined file: C:\Users\pc\AppData\Local\Temp\junit7997838331333400985\quarantine\1673907a-64b5-4980-8ef3-93729e20c34a_delete_test.txt
+[2026-11-05 17:50:25] INFO - Quarantined file: C:\Users\pc\AppData\Local\Temp\junit10084227350181094902\source\restore_test.txt
+[2026-11-05 17:50:25] INFO - Restored file: C:\Users\pc\AppData\Local\Temp\junit10084227350181094902\source\restore_test.txt
+[2026-11-05 17:50:26] INFO - Quarantined file: C:\Users\pc\AppData\Local\Temp\junit5871997390791866054\source\test.txt
+[2026-11-05 17:53:28] INFO - AppController initialized
+[2026-11-05 17:53:28] INFO - Exporting 1 group(s) as CSV
+[2026-11-05 17:53:28] INFO - Export complete: C:\Users\pc\AppData\Local\Temp\junit4722830831423850732\export.csv
+[2026-11-05 17:53:28] INFO - AppController initialized
+[2026-11-05 17:53:28] INFO - Scanning directory: C:\Users\pc\AppData\Local\Temp\junit3422558777722339413\scan_target
+[2026-11-05 17:53:28] INFO - Found 3 candidate files
+[2026-11-05 17:53:28] INFO - Scan complete: 1 duplicate groups in 43 ms
+[2026-11-05 17:53:28] INFO - AppController initialized
+[2026-11-05 17:53:28] INFO - AppController initialized
+[2026-11-05 17:53:28] INFO - AppController initialized
+[2026-11-05 17:58:29] INFO - AppController initialized
+[2026-11-05 17:58:29] INFO - Exporting 1 group(s) as CSV
+[2026-11-05 17:58:29] INFO - Export complete: C:\Users\pc\AppData\Local\Temp\junit4148623118080948287\export.csv
+[2026-11-05 17:58:29] INFO - AppController initialized
+[2026-11-05 17:58:29] INFO - Scanning directory: C:\Users\pc\AppData\Local\Temp\junit8158933819360608975\scan_target
+[2026-11-05 17:58:29] INFO - Found 3 candidate files
+[2026-11-05 17:58:29] INFO - Scan complete: 1 duplicate groups in 23 ms
+[2026-11-05 17:58:29] INFO - AppController initialized
+[2026-11-05 17:58:29] INFO - AppController initialized
+[2026-11-05 17:58:29] INFO - AppController initialized
+[2026-11-05 17:58:35] INFO - Quarantined file: C:\Users\pc\AppData\Local\Temp\junit3825770669985403748\source\delete_test.txt
+[2026-11-05 17:58:35] INFO - Permanently deleted quarantined file: C:\Users\pc\AppData\Local\Temp\junit3825770669985403748\quarantine\93884673-8938-45e8-ab7f-5ffe34cccb46_delete_test.txt
+[2026-11-05 17:58:35] INFO - Quarantined file: C:\Users\pc\AppData\Local\Temp\junit13012772752369007944\source\restore_test.txt
+[2026-11-05 17:58:35] INFO - Restored file: C:\Users\pc\AppData\Local\Temp\junit13012772752369007944\source\restore_test.txt
+[2026-11-05 17:58:36] INFO - Quarantined file: C:\Users\pc\AppData\Local\Temp\junit15304664797322087266\source\test.txt
+[2026-11-05 18:06:14] INFO - AppController initialized
+[2026-11-05 18:07:22] INFO - Scanning directory: C:\Users\pc\Downloads\duplicatefilefinder
+[2026-11-05 18:07:22] INFO - Found 15 candidate files
+[2026-11-05 18:07:22] INFO - Scan complete: 3 duplicate groups in 145 ms
+[2026-11-05 18:08:31] INFO - Scanning directory: C:\Users\pc\Downloads\duplicatefilefinder
+[2026-11-05 18:08:31] INFO - Found 15 candidate files
+[2026-11-05 18:08:31] INFO - Scan complete: 3 duplicate groups in 38 ms
+[2026-11-05 18:14:59] INFO - Exporting 3 group(s) as CSV
+[2026-11-05 18:14:59] INFO - Export complete: C:\Users\pc\Documents\duplicate-results.csv
+[2026-11-05 18:15:07] INFO - Exporting 3 group(s) as JSON
+[2026-11-05 18:15:07] INFO - Export complete: C:\Users\pc\Documents\duplicate-results.json
+[2026-11-05 18:27:43] INFO - Quarantining 1 file(s)
+[2026-11-05 18:27:43] INFO - Quarantined file: C:\Users\pc\Downloads\duplicatefilefinder\TestImage - Copy.jpg
+[2026-11-05 18:27:43] INFO - Quarantine completed: 1 file(s) moved
+[2026-11-05 18:28:42] INFO - AppController initialized
+[2026-11-05 18:29:28] INFO - AppController initialized
+[2026-11-05 18:32:07] INFO - Restoring 1 file(s)
+[2026-11-05 18:32:07] INFO - Restored file: C:\Users\pc\Downloads\duplicatefilefinder\TestImage - Copy.jpg
+[2026-11-05 18:32:07] INFO - Restore complete: 1 file(s) restored
+[2026-11-05 18:32:50] INFO - Scanning directory: C:\Users\pc\Downloads\duplicatefilefinder
+[2026-11-05 18:32:50] INFO - Found 15 candidate files
+[2026-11-05 18:32:50] INFO - Scan complete: 3 duplicate groups in 40 ms
+[2026-11-05 18:33:05] INFO - Quarantining 1 file(s)
+[2026-11-05 18:33:05] INFO - Quarantined file: C:\Users\pc\Downloads\duplicatefilefinder\TestImage - Copy.jpg
+[2026-11-05 18:33:05] INFO - Quarantine completed: 1 file(s) moved
+[2026-11-05 18:35:03] INFO - AppController initialized
+[2026-11-05 18:35:24] INFO - Restoring 1 file(s)
+[2026-11-05 18:35:24] INFO - Restored file: C:\Users\pc\Downloads\duplicatefilefinder\TestImage - Copy.jpg
+[2026-11-05 18:35:24] INFO - Restore complete: 1 file(s) restored
+[2026-11-05 18:37:05] INFO - Scanning directory: C:\Users\pc\Downloads\duplicatefilefinder
+[2026-11-05 18:37:05] INFO - Found 15 candidate files
+[2026-11-05 18:37:05] INFO - Scan complete: 3 duplicate groups in 37 ms
+[2026-11-05 19:16:24] INFO - AppController initialized
+[2026-11-05 19:16:24] INFO - Exporting 1 group(s) as CSV
+[2026-11-05 19:16:24] INFO - Export complete: C:\Users\pc\AppData\Local\Temp\junit15655767070603527562\export.csv
+[2026-11-05 19:16:24] INFO - AppController initialized
+[2026-11-05 19:16:24] INFO - Scanning directory: C:\Users\pc\AppData\Local\Temp\junit5890693599824580683\scan_target
+[2026-11-05 19:16:24] INFO - Found 3 candidate files
+[2026-11-05 19:16:24] INFO - Scan complete: 1 duplicate groups in 30 ms
+[2026-11-05 19:16:24] INFO - AppController initialized
+[2026-11-05 19:16:24] INFO - AppController initialized
+[2026-11-05 19:16:24] INFO - AppController initialized
+[2026-11-05 19:16:31] INFO - Quarantined file: C:\Users\pc\AppData\Local\Temp\junit7630428056311480044\source\delete_test.txt
+[2026-11-05 19:16:31] INFO - Permanently deleted quarantined file: C:\Users\pc\AppData\Local\Temp\junit7630428056311480044\quarantine\073355d7-37b8-4371-933b-1a9c7b09ac98_delete_test.txt
+[2026-11-05 19:16:31] INFO - Quarantined file: C:\Users\pc\AppData\Local\Temp\junit2482961968965430804\source\restore_test.txt
+[2026-11-05 19:16:31] INFO - Restored file: C:\Users\pc\AppData\Local\Temp\junit2482961968965430804\source\restore_test.txt
+[2026-11-05 19:16:31] INFO - Quarantined file: C:\Users\pc\AppData\Local\Temp\junit7042472472388852437\source\test.txt
+[2026-11-05 19:17:00] INFO - AppController initialized
+[2026-11-05 19:17:00] INFO - Exporting 1 group(s) as CSV
+[2026-11-05 19:17:00] INFO - Export complete: C:\Users\pc\AppData\Local\Temp\junit3505338946747922424\export.csv
+[2026-11-05 19:17:00] INFO - AppController initialized
+[2026-11-05 19:17:00] INFO - Scanning directory: C:\Users\pc\AppData\Local\Temp\junit5785631468102952473\scan_target
+[2026-11-05 19:17:00] INFO - Found 3 candidate files
+[2026-11-05 19:17:00] INFO - Scan complete: 1 duplicate groups in 29 ms
+[2026-11-05 19:17:00] INFO - AppController initialized
+[2026-11-05 19:17:00] INFO - AppController initialized
+[2026-11-05 19:17:00] INFO - AppController initialized
+[2026-11-05 19:17:06] INFO - Quarantined file: C:\Users\pc\AppData\Local\Temp\junit1157235039563589410\source\delete_test.txt
+[2026-11-05 19:17:06] INFO - Permanently deleted quarantined file: C:\Users\pc\AppData\Local\Temp\junit1157235039563589410\quarantine\b628534d-6263-4cc5-b0c6-937e2ba2ff30_delete_test.txt
+[2026-11-05 19:17:06] INFO - Quarantined file: C:\Users\pc\AppData\Local\Temp\junit349258583456602042\source\restore_test.txt
+[2026-11-05 19:17:06] INFO - Restored file: C:\Users\pc\AppData\Local\Temp\junit349258583456602042\source\restore_test.txt
+[2026-11-05 19:17:06] INFO - Quarantined file: C:\Users\pc\AppData\Local\Temp\junit13326242072888555269\source\test.txt
+[2026-11-05 19:30:46] INFO - AppController initialized
+[2026-11-05 19:30:46] INFO - Exporting 1 group(s) as CSV
+[2026-11-05 19:30:46] INFO - Export complete: C:\Users\pc\AppData\Local\Temp\junit4920921570489281553\export.csv
+[2026-11-05 19:30:46] INFO - AppController initialized
+[2026-11-05 19:30:46] INFO - Scanning directory: C:\Users\pc\AppData\Local\Temp\junit2841515026690494409\scan_target
+[2026-11-05 19:30:46] INFO - Found 3 candidate files
+[2026-11-05 19:30:46] INFO - Scan complete: 1 duplicate groups in 28 ms
+[2026-11-05 19:30:46] INFO - AppController initialized
+[2026-11-05 19:30:46] INFO - AppController initialized
+[2026-11-05 19:30:46] INFO - AppController initialized
+[2026-11-05 19:35:27] INFO - AppController initialized
+[2026-11-05 19:35:27] INFO - Exporting 1 group(s) as CSV
+[2026-11-05 19:35:27] INFO - Export complete: C:\Users\pc\AppData\Local\Temp\junit733604900161110294\export.csv
+[2026-11-05 19:35:27] INFO - AppController initialized
+[2026-11-05 19:35:27] INFO - Scanning directory: C:\Users\pc\AppData\Local\Temp\junit12643382208061194624\scan_target
+[2026-11-05 19:35:27] INFO - Found 3 candidate files
+[2026-11-05 19:35:27] INFO - Scan complete: 1 duplicate groups in 26 ms
+[2026-11-05 19:35:27] INFO - AppController initialized
+[2026-11-05 19:35:27] INFO - AppController initialized
+[2026-11-05 19:35:27] INFO - AppController initialized
+[2026-11-05 19:36:20] INFO - Quarantined file: C:\Users\pc\AppData\Local\Temp\junit10772980720595676372\source\delete_test.txt
+[2026-11-05 19:36:20] INFO - Permanently deleted quarantined file: C:\Users\pc\AppData\Local\Temp\junit10772980720595676372\quarantine\e1545a60-178f-4826-807e-b69f623d14cd_delete_test.txt
+[2026-11-05 19:36:20] INFO - Quarantined file: C:\Users\pc\AppData\Local\Temp\junit4056259394125684704\source\restore_test.txt
+[2026-11-05 19:36:20] INFO - Restored file: C:\Users\pc\AppData\Local\Temp\junit4056259394125684704\source\restore_test.txt
+[2026-11-05 19:36:20] INFO - Quarantined file: C:\Users\pc\AppData\Local\Temp\junit14303515694773194216\source\test.txt
+[2026-11-05 19:39:32] INFO - AppController initialized
+[2026-11-05 19:39:32] INFO - Exporting 1 group(s) as CSV
+[2026-11-05 19:39:32] INFO - Export complete: C:\Users\pc\AppData\Local\Temp\junit11643815266535833004\export.csv
+[2026-11-05 19:39:32] INFO - AppController initialized
+[2026-11-05 19:39:32] INFO - Scanning directory: C:\Users\pc\AppData\Local\Temp\junit16788810296237451721\scan_target
+[2026-11-05 19:39:32] INFO - Found 3 candidate files
+[2026-11-05 19:39:33] INFO - Scan complete: 1 duplicate groups in 32 ms
+[2026-11-05 19:39:33] INFO - AppController initialized
+[2026-11-05 19:39:33] INFO - AppController initialized
+[2026-11-05 19:39:33] INFO - AppController initialized
+[2026-11-07 13:27:54] INFO - AppController initialized
+[2026-11-07 13:27:54] INFO - Exporting 1 group(s) as CSV
+[2026-11-07 13:27:54] INFO - Export complete: C:\Users\letha\AppData\Local\Temp\junit8919904327812061101\export.csv
+[2026-11-07 13:27:54] INFO - AppController initialized
+[2026-11-07 13:27:54] INFO - Scanning directory: C:\Users\letha\AppData\Local\Temp\junit14665956830811334807\scan_target
+[2026-11-07 13:27:54] INFO - Found 3 candidate files
+[2026-11-07 13:27:54] INFO - Scan complete: 1 duplicate groups in 22 ms
+[2026-11-07 13:27:54] INFO - AppController initialized
+[2026-11-07 13:27:54] INFO - AppController initialized
+[2026-11-07 13:27:54] INFO - AppController initialized
