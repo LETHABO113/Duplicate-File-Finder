@@ -378,7 +378,6 @@ Duplicate-File-Finder/
     |-- config/                     # Serialized settings
     |-- logs/                       # Project runtime activity log
     |-- quarantine/                 # Project quarantine and audit log
-    `-- DFF-Video-Demo/              # Demonstration files
 ```
 
 NetBeans generates `build/`, `dist/`, and `nbproject/private/` locally. These paths are excluded by `.gitignore`.
